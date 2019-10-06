@@ -1,0 +1,9 @@
+knpu_oauth2_client:
+    clients:
+        anime:
+            type: generic
+            provider_class: App\Security\OauthProvider\AnimeAuthProvider
+            client_id: '%env(ANIME_AUTH_ID)%'
+            client_secret: '%env(ANIME_AUTH_SECRET)%'
+            redirect_route: api_security_check
+            redirect_params: {}
