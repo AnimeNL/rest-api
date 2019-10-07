@@ -18,3 +18,7 @@ Getting started with the API is easy, simply navigate to the hostname you've con
 with a fully fledged documentation.
 
 Some endpoints and properties may require authentication, documentation for this is pending (and so is the authentication itself.)
+
+## Building a client
+Due to the fact that the API is built upon API Platform (https://api-platform.com/) it is relatively easy to adapt it's output to your needs. 
+This is also the reason the default response may be overkill for your use case, for a regular JSON response you'll want to set the `Accept` header to `application/json`.
