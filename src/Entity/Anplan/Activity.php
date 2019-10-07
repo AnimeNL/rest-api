@@ -163,7 +163,7 @@ class Activity
     /**
      * @var string|null
      * @ORM\Column(name="pac_tickets_info", type="text", nullable=true)
-     * @Groups({"read"})
+     * @Groups({"staff:read"})
      */
     public $ticketsInfo;
 
