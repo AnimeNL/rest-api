@@ -31,10 +31,28 @@ class Floor
     public $id;
 
     /**
+     * @var int
+     * @ORM\Column(name="pfl_year", type="integer")
+     */
+    public $year;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pfl_name", type="string")
+     */
+    public $name;
+
+    /**
      * @var string|null
      * @ORM\Column(name="pfl_description", type="string", nullable=true)
      */
     public $description;
+
+    /**
+     * @var string|null
+     * @ORM\Column(name="pfl_background_color", type="string", nullable=true)
+     */
+    public $cssBackgroundColor;
 
     //endregion
 
@@ -50,6 +68,21 @@ class Floor
         return $this->description;
     }
 
+    public function getYear(): int
+    {
+        return $this->year;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getCssBackgroundColor(): ?string
+    {
+        return $this->cssBackgroundColor;
+    }
+
     //endregion
 
     //region Setters
@@ -57,6 +90,24 @@ class Floor
     public function setDescription(?string $description): Floor
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function setYear(int $year): Floor
+    {
+        $this->year = $year;
+        return $this;
+    }
+
+    public function setName(string $name): Floor
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setCssBackgroundColor(?string $cssBackgroundColor): Floor
+    {
+        $this->cssBackgroundColor = $cssBackgroundColor;
         return $this;
     }
 
