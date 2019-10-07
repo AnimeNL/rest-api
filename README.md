@@ -1,7 +1,7 @@
 # AnimeCon REST API
-### Installation instructions
+## Installation instructions
 Pre requisites:
-- PHP 7.2+
+- PHP 7.3+
 - An functional AnPlan database
 
 To get started you will need to clone the API, and copy the `.env` file to a `.env.local` file.
@@ -13,7 +13,7 @@ Ensure that the `APP_ENV` is set to `prod` in the event that you are setting up 
 
 **Important!** Do **not** under **any circumstance** run **any** Doctrine command.
 
-### Working with the API
+## Working with the API
 Getting started with the API is easy, simply navigate to the hostname you've configured in your webserver and you will be presented 
 with a fully fledged documentation.
 
