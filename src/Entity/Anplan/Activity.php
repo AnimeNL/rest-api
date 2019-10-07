@@ -4,6 +4,7 @@ namespace App\Entity\Anplan;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
@@ -15,7 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
  *     },
  *     itemOperations={
  *         "get",
- *     }
+ *     },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
  * )
  */
 class Activity
@@ -27,120 +30,140 @@ class Activity
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(name="pac_id", type="integer")
+     * @Groups({"read"})
      */
     public $id;
 
     /**
      * @var string
      * @ORM\Column(name="pac_title", type="string")
+     * @Groups({"read"})
      */
     public $title;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_sponsor", type="string", nullable=true)
+     * @Groups({"read"})
      */
     public $sponsor;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_host", type="string", nullable=true)
+     * @Groups({"read"})
      */
     public $host;
 
     /**
      * @var bool
      * @ORM\Column(name="pac_visible", type="boolean")
+     * @Groups({"staff:read"})
      */
     public $visible;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_reason_invisible", type="string", nullable=true)
+     * @Groups({"staff:read"})
      */
     public $reasonInvisible;
 
     /**
      * @var bool
      * @ORM\Column(name="pac_spell_checked", type="boolean")
+     * @Groups({"staff:read"})
      */
     public $spellChecked;
 
     /**
      * @var int|null
      * @ORM\Column(name="pac_max_visitors", type="boolean")
+     * @Groups({"read"})
      */
     public $maxVisitors;
 
     /**
      * @var float|null
      * @ORM\Column(name="pac_price", type="decimal", scale=2, precision=20)
+     * @Groups({"read"})
      */
     public $price;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_rules", type="text", nullable=true)
+     * @Groups({"read"})
      */
     public $rules;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_description", type="text", nullable=true)
+     * @Groups({"read"})
      */
     public $description;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_print_description", type="text", nullable=true)
+     * @Groups({"read"})
      */
     public $printDescription;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_web_description", type="text", nullable=true)
+     * @Groups({"read"})
      */
     public $webDescription;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_social_description", type="text", nullable=true)
+     * @Groups({"read"})
      */
     public $socialDescription;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_url", type="string", nullable=true)
+     * @Groups({"read"})
      */
     public $url;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_prizes", type="text", nullable=true)
+     * @Groups({"read"})
      */
     public $prizes;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_tech_info", type="text", nullable=true)
+     * @Groups({"staff:read", "tech-crew:read"})
      */
     public $techInfo;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_logistics_info", type="text", nullable=true)
+     * @Groups({"staff:read", "gopher:read"})
      */
     public $logisticsInfo;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_finance_info", type="text", nullable=true)
+     * @Groups({"staff:read"})
      */
     public $financeInfo;
 
     /**
      * @var string|null
      * @ORM\Column(name="pac_tickets_info", type="text", nullable=true)
+     * @Groups({"read"})
      */
     public $ticketsInfo;
 
