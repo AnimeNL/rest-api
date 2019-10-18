@@ -10,15 +10,10 @@ class ConnectController
 {
     /**
      * @Route(path="/security/connect", name="api_security_connect")
-     * @param ClientRegistry $clientRegistry
      * @return JsonResponse
      */
-    public function handleRequest(ClientRegistry $clientRegistry): JsonResponse
+    public function handleRequest(): JsonResponse
     {
-        $targetUrl = $clientRegistry->getClient('anime')->redirect()->getTargetUrl();
-
-        return new JsonResponse([
-            'redirectUrl' => $targetUrl,
-        ]);
+        return new JsonResponse();
     }
 }

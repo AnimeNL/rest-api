@@ -1,0 +1,6 @@
+lexik_jwt_authentication:
+    user_identity_field:    sub
+    private_key_path:       '%kernel.project_dir%/var/jwt/private.key'
+    public_key_path:        '%kernel.project_dir%/var/jwt/public.key'
+    pass_phrase:            '%env(JWT_KEY_PASS_PHRASE)%'
+    token_ttl:              '%env(JWT_TOKEN_TTL)%'
