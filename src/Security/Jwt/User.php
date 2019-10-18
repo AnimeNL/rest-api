@@ -8,15 +8,7 @@ final class User extends JWTUser
 {
     public static function createFromPayload($username, array $payload)
     {
-        $roles = array_map(
-            static function ($role) {
-                $role = strtoupper($role);
-                $role = str_replace(' ', '_', $role);
-
-                return 'ROLE_'.$role;
-            },
-            $payload['scopes']
-        );
+        $roles = array_map([RoleConverter::class, 'convert'], $payload['scopes']);
 
         return new self(
             $username,
