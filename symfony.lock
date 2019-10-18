@@ -104,15 +104,6 @@
     "gitonomy/gitlib": {
         "version": "v1.1.0"
     },
-    "guzzlehttp/guzzle": {
-        "version": "6.3.3"
-    },
-    "guzzlehttp/promises": {
-        "version": "v1.3.1"
-    },
-    "guzzlehttp/psr7": {
-        "version": "1.6.1"
-    },
     "jakub-onderka/php-parallel-lint": {
         "version": "v1.0.0"
     },
@@ -122,23 +113,26 @@
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
-    "knpuniversity/oauth2-client-bundle": {
-        "version": "1.20",
+    "lcobucci/jwt": {
+        "version": "3.3.1"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
         "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
+            "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "1.20",
-            "ref": "80acc9223a205cbf5d9828fd616c82a374d281dd"
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
         },
         "files": [
-            "config/packages/knpu_oauth2_client.yaml"
+            "config/packages/lexik_jwt_authentication.yaml"
         ]
-    },
-    "league/oauth2-client": {
-        "version": "2.4.1"
     },
     "monolog/monolog": {
         "version": "2.0.0"
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -209,23 +203,29 @@
     "psr/container": {
         "version": "1.0.0"
     },
-    "psr/http-message": {
-        "version": "1.0.1"
-    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.0"
     },
-    "ralouphie/getallheaders": {
-        "version": "3.0.3"
-    },
     "roave/security-advisories": {
         "version": "dev-master"
     },
     "seld/jsonlint": {
         "version": "1.7.1"
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
     },
     "squizlabs/php_codesniffer": {
         "version": "3.0",
