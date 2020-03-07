@@ -35,3 +35,7 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> iis ###
+/public/web.config
+###< iis ###
