@@ -21,10 +21,9 @@ jobs:
                     extensions: xdebug, mbstring #optional
             -   name: Check PHP Version
                 run: php -v
-            -   name: Validate composer.json and composer.lock
+            -   name: Composer validate
                 run: composer validate
-            -   uses: MilesChou/composer-action@master
-                with:
-                    args: install
+            -   name: Composer install
+                uses: php-actions/composer@v1
             -   name: Run the tests
                 run: php vendor/bin/grumphp run --no-interaction
