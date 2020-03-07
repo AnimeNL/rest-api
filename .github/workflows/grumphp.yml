@@ -12,22 +12,20 @@ jobs:
             fail-fast: false
         name: PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }} ${{ matrix.composer-options }}
         steps:
-            - name: Checkout
-              uses: actions/checkout@master
-            - name: Install PHP
-              uses: shivammathur/setup-php@master
-              with:
-                  php-version: ${{ matrix.php-versions }}
-                  extensions: xdebug, mbstring #optional
-            - name: Check PHP Version
-              run: php -v
-            - name: Validate composer.json and composer.lock
-              run: composer validate
-            - name: Install dependencies
-              run: composer update --prefer-dist --no-progress --no-suggest ${{ matrix.composer-options }}
-            - name: Set git variables
-              run: |
-                git config --global user.email "you@example.com"
-                git config --global user.name "Your Name"
-            - name: Run the tests
-              run: php vendor/bin/grumphp run --no-interaction
+            -   name: Checkout
+                uses: actions/checkout@master
+            -   name: Install PHP
+                uses: shivammathur/setup-php@master
+                with:
+                    php-version: ${{ matrix.php-versions }}
+                    extensions: xdebug, mbstring #optional
+            -   name: Check PHP Version
+                run: php -v
+            -   name: Validate composer.json and composer.lock
+                run: composer validate
+            -   name: Composer install
+                uses: docker://composer:1.9.1
+                with:
+                    args: install
+            -   name: Run the tests
+                run: php vendor/bin/grumphp run --no-interaction
