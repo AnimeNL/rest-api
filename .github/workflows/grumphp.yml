@@ -1,6 +1,6 @@
 name: GrumPHP
 
-on: [push, pull_request]
+on: [push]
 jobs:
     run:
         runs-on: ${{ matrix.operating-system }}
@@ -23,8 +23,7 @@ jobs:
                 run: php -v
             -   name: Validate composer.json and composer.lock
                 run: composer validate
-            -   name: Composer install
-                uses: docker://composer:1.9.1
+            -   uses: MilesChou/composer-action@master
                 with:
                     args: install
             -   name: Run the tests
