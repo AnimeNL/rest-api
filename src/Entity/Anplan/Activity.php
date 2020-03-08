@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     itemOperations={
  *         "get",
  *     },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"read", "read-activity"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
  */
@@ -184,7 +184,7 @@ class Activity
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Anplan\Timeslot", mappedBy="activity")
      * @ApiSubresource
-     * @Groups({"read"})
+     * @Groups({"read-activity"})
      */
     public $timeslots;
 
