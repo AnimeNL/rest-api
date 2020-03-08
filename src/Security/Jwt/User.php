@@ -12,7 +12,7 @@ final class User extends JWTUser
 
         return new self(
             $username,
-            array_merge($roles, ['ROLE_USER'])
+            [...$roles, 'ROLE_USER']
         );
     }
 }

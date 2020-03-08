@@ -2,7 +2,6 @@
 
 namespace App\Controller\Security;
 
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 

@@ -21,38 +21,32 @@ use Doctrine\ORM\Mapping as ORM;
 class Floor
 {
     //region Fields
-
     /**
-     * @var int
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(name="pfl_id", type="integer")
      */
-    public $id;
+    public int $id;
 
     /**
-     * @var int
      * @ORM\Column(name="pfl_year", type="integer")
      */
-    public $year;
+    public int $year;
 
     /**
-     * @var string
      * @ORM\Column(name="pfl_name", type="string")
      */
-    public $name;
+    public string $name;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pfl_description", type="string", nullable=true)
      */
-    public $description;
+    public ?string $description;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pfl_background_color", type="string", nullable=true)
      */
-    public $cssBackgroundColor;
+    public ?string $cssBackgroundColor;
 
     //endregion
 

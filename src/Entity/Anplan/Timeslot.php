@@ -5,6 +5,7 @@ namespace App\Entity\Anplan;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -31,34 +32,28 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 class Timeslot
 {
     //region Fields
-
     /**
-     * @var int
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(name="pts_id", type="integer")
      * @Groups({"read"})
      */
-    public $id;
+    public int $id;
 
     /**
-     * @var DateTime
      * @ORM\Column(name="pts_starts_at", type="datetime")
      * @Groups({"read"})
      */
-    public $dateStartsAt;
+    public DateTimeInterface $dateStartsAt;
 
     /**
-     * @var DateTime
      * @ORM\Column(name="pts_ends_at", type="datetime")
      * @Groups({"read"})
      */
-    public $dateEndsAt;
+    public DateTimeInterface $dateEndsAt;
 
     //endregion
-
     //region Associations
-
     /**
      * @var Activity
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Activity", inversedBy="timeslots")
@@ -66,16 +61,15 @@ class Timeslot
      * @ApiSubresource()
      * @Groups({"read-timeslot"})
      */
-    public $activity;
+    public ?Activity $activity;
 
     /**
-     * @var Location
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Location")
      * @ORM\JoinColumn(name="pts_location_id", referencedColumnName="plo_id")
      * @ApiSubresource()
      * @Groups({"read"})
      */
-    public $location;
+    public ?Location $location;
 
     //endregion
 
@@ -86,12 +80,12 @@ class Timeslot
         return $this->id;
     }
 
-    public function getDateStartsAt(): DateTime
+    public function getDateStartsAt(): DateTimeInterface
     {
         return $this->dateStartsAt;
     }
 
-    public function getDateEndsAt(): DateTime
+    public function getDateEndsAt(): DateTimeInterface
     {
         return $this->dateEndsAt;
     }

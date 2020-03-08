@@ -24,127 +24,109 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class ActivityType
 {
     //region Fields
-
     /**
-     * @var int
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(name="pat_id", type="integer")
      * @Groups({"read"})
      */
-    public $id;
+    public int $id;
 
     /**
-     * @var string
      * @ORM\Column(name="pat_description", type="string")
      * @Groups({"read"})
      */
-    public $description;
+    public string $description;
 
     /**
-     * @var string
      * @ORM\Column(name="pat_long_description", type="text")
      * @Groups({"read"})
      */
-    public $longDescription;
+    public string $longDescription;
 
     /**
-     * @var int
      * @ORM\Column(name="pat_order", type="integer")
      * @Groups({"read"})
      */
-    public $order;
+    public int $order;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_visible", type="boolean")
      * @Groups({"read"})
      */
-    public $visible;
+    public bool $visible;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_selectable", type="boolean")
      * @Groups({"read"})
      */
-    public $selectable;
+    public bool $selectable;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_18plus", type="boolean")
      * @Groups({"read"})
      */
-    public $adultsOnly;
+    public bool $adultsOnly;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_compo", type="boolean")
      * @Groups({"read"})
      */
-    public $competition;
+    public bool $competition;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_cosplay", type="boolean")
      * @Groups({"read"})
      */
-    public $cosplay;
+    public bool $cosplay;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_event", type="boolean")
      * @Groups({"read"})
      */
-    public $event;
+    public bool $event;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_gameroom", type="boolean")
      * @Groups({"read"})
      */
-    public $gameRoom;
+    public bool $gameRoom;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_video", type="boolean")
      * @Groups({"read"})
      */
-    public $video;
+    public bool $video;
 
     /**
-     * @var string
      * @ORM\Column(name="pat_class", type="string")
      * @Groups({"read"})
      */
-    public $cssClass;
+    public string $cssClass;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pat_foreground_color", type="string")
      * @Groups({"read"})
      */
-    public $cssForegroundColor;
+    public ?string $cssForegroundColor;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pat_background_color", type="string")
      * @Groups({"read"})
      */
-    public $cssBackgroundColor;
+    public string $cssBackgroundColor;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_is_bold", type="boolean")
      * @Groups({"read"})
      */
-    public $cssBold;
+    public bool $cssBold;
 
     /**
-     * @var bool
      * @ORM\Column(name="pat_is_strike_through", type="boolean")
      * @Groups({"read"})
      */
-    public $cssIsStrikeThrough;
+    public bool $cssIsStrikeThrough;
 
     //endregion
 

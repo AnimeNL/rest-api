@@ -24,43 +24,37 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Location
 {
     //region Fields
-
     /**
-     * @var int
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(name="plo_id", type="integer")
      * @Groups({"read"})
      */
-    public $id;
+    public int $id;
 
     /**
-     * @var int
      * @ORM\Column(name="plo_year", type="integer")
      * @Groups({"read"})
      */
-    public $year;
+    public int $year;
 
     /**
-     * @var string
      * @ORM\Column(name="plo_name", type="string")
      * @Groups({"read"})
      */
-    public $name;
+    public string $name;
 
     /**
-     * @var string|null
      * @ORM\Column(name="plo_use_name", type="string", nullable=true)
      * @Groups({"read"})
      */
-    public $useName;
+    public ?string $useName;
 
     /**
-     * @var string|null
      * @ORM\Column(name="plo_sponsor", type="string", nullable=true)
      * @Groups({"read"})
      */
-    public $sponsor;
+    public ?string $sponsor;
 
     //endregion
 
