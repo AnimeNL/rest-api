@@ -8,6 +8,8 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ORM\Entity()
@@ -19,10 +21,12 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     },
  *     itemOperations={
  *         "get",
- *     }
+ *     },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
  * )
  * @ApiFilter(DateFilter::class, properties={"dateStartsAt", "dateEndsAt"})
- * @ApiFilter(SearchFilter::class, properties={"activity.id", "activity.year", "location.id"})
+ * @ApiFilter(SearchFilter::class, properties={"activity.id", "activity.year", "location.id", "activity.visible"})
  */
 class Timeslot
 {
@@ -33,18 +37,21 @@ class Timeslot
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(name="pts_id", type="integer")
+     * @Groups({"read"})
      */
     public $id;
 
     /**
      * @var DateTime
      * @ORM\Column(name="pts_starts_at", type="datetime")
+     * @Groups({"read"})
      */
     public $dateStartsAt;
 
     /**
      * @var DateTime
      * @ORM\Column(name="pts_ends_at", type="datetime")
+     * @Groups({"read"})
      */
     public $dateEndsAt;
 
@@ -54,8 +61,10 @@ class Timeslot
 
     /**
      * @var Activity
-     * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Activity")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Activity", inversedBy="timeslots")
      * @ORM\JoinColumn(name="pts_activity_id", referencedColumnName="pac_id")
+     * @ApiSubresource()
+     * @Groups({"read"})
      */
     public $activity;
 
@@ -63,6 +72,8 @@ class Timeslot
      * @var Location
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Location")
      * @ORM\JoinColumn(name="pts_location_id", referencedColumnName="plo_id")
+     * @ApiSubresource()
+     * @Groups({"read"})
      */
     public $location;
 

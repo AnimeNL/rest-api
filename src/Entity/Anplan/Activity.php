@@ -3,6 +3,7 @@
 namespace App\Entity\Anplan;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -175,8 +176,17 @@ class Activity
      * @var ActivityType
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\ActivityType")
      * @ORM\JoinColumn(name="pac_type_id", referencedColumnName="pat_id")
+     * @ApiSubresource
+     * @Groups({"read"})
      */
     public $activityType;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Anplan\Timeslot", mappedBy="activity")
+     * @ApiSubresource
+     * @Groups({"read"})
+     */
+    public $timeslots;
 
     //endregion
 
@@ -285,6 +295,11 @@ class Activity
     public function getTicketsInfo(): ?string
     {
         return $this->ticketsInfo;
+    }
+
+    public function getTimeslots()
+    {
+        return $this->timeslots;
     }
 
     //endregion
