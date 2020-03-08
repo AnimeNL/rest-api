@@ -1,4 +1,6 @@
 {
+    "name": "animecon/anplan-api",
+    "description": "Anplan API",
     "type": "project",
     "license": "proprietary",
     "require": {

@@ -1,14 +1,8 @@
 language: php
 
 php:
-    - 7.2
-    - 7.3
+    - 7.4
     - nightly
-
-env:
-    matrix:
-        -
-        - DEPENDENCIES=--prefer-lowest
 
 cache:
     directories:
@@ -24,7 +18,7 @@ before_install:
     - composer global require hirak/prestissimo
 
 install:
-    - travis_retry composer update --no-progress --profile --no-scripts --no-suggest $DEPENDENCIES
+    - travis_retry composer install --no-progress --no-interaction
 
 script:
     - vendor/bin/grumphp run
