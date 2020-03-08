@@ -24,159 +24,135 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Activity
 {
     //region Fields
-
     /**
-     * @var int
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(name="pac_id", type="integer")
      * @Groups({"read"})
      */
-    public $id;
+    public int $id;
 
     /**
-     * @var string
      * @ORM\Column(name="pac_title", type="string")
      * @Groups({"read"})
      */
-    public $title;
+    public string $title;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_sponsor", type="string", nullable=true)
      * @Groups({"read"})
      */
-    public $sponsor;
+    public ?string $sponsor;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_host", type="string", nullable=true)
      * @Groups({"read"})
      */
-    public $host;
+    public ?string $host;
 
     /**
-     * @var bool
      * @ORM\Column(name="pac_visible", type="boolean")
      * @Groups({"staff:read"})
      */
-    public $visible;
+    public bool $visible;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_reason_invisible", type="string", nullable=true)
      * @Groups({"staff:read"})
      */
-    public $reasonInvisible;
+    public ?string $reasonInvisible;
 
     /**
-     * @var bool
      * @ORM\Column(name="pac_spell_checked", type="boolean")
      * @Groups({"staff:read"})
      */
-    public $spellChecked;
+    public bool $spellChecked;
 
     /**
-     * @var int|null
      * @ORM\Column(name="pac_max_visitors", type="boolean")
      * @Groups({"read"})
      */
-    public $maxVisitors;
+    public ?int $maxVisitors;
 
     /**
-     * @var float|null
      * @ORM\Column(name="pac_price", type="decimal", scale=2, precision=20)
      * @Groups({"read"})
      */
-    public $price;
+    public ?float $price;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_rules", type="text", nullable=true)
      * @Groups({"read"})
      */
-    public $rules;
+    public ?string $rules;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_description", type="text", nullable=true)
      * @Groups({"read"})
      */
-    public $description;
+    public ?string $description;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_print_description", type="text", nullable=true)
      * @Groups({"read"})
      */
-    public $printDescription;
+    public ?string $printDescription;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_web_description", type="text", nullable=true)
      * @Groups({"read"})
      */
-    public $webDescription;
+    public ?string $webDescription;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_social_description", type="text", nullable=true)
      * @Groups({"read"})
      */
-    public $socialDescription;
+    public ?string $socialDescription;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_url", type="string", nullable=true)
      * @Groups({"read"})
      */
-    public $url;
+    public ?string $url;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_prizes", type="text", nullable=true)
      * @Groups({"read"})
      */
-    public $prizes;
+    public ?string $prizes;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_tech_info", type="text", nullable=true)
      * @Groups({"staff:read", "tech-crew:read"})
      */
-    public $techInfo;
+    public ?string $techInfo;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_logistics_info", type="text", nullable=true)
      * @Groups({"staff:read", "gopher:read"})
      */
-    public $logisticsInfo;
+    public ?string $logisticsInfo;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_finance_info", type="text", nullable=true)
      * @Groups({"staff:read"})
      */
-    public $financeInfo;
+    public ?string $financeInfo;
 
     /**
-     * @var string|null
      * @ORM\Column(name="pac_tickets_info", type="text", nullable=true)
      * @Groups({"staff:read"})
      */
-    public $ticketsInfo;
+    public ?string $ticketsInfo;
 
     //endregion
-
     //region Associations
-
     /**
-     * @var ActivityType
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\ActivityType")
      * @ORM\JoinColumn(name="pac_type_id", referencedColumnName="pat_id")
      */
-    public $activityType;
+    public ?ActivityType $activityType;
 
     //endregion
 

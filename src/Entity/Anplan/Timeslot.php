@@ -5,6 +5,7 @@ namespace App\Entity\Anplan;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -27,44 +28,36 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 class Timeslot
 {
     //region Fields
-
     /**
-     * @var int
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(name="pts_id", type="integer")
      */
-    public $id;
+    public int $id;
 
     /**
-     * @var DateTime
      * @ORM\Column(name="pts_starts_at", type="datetime")
      */
-    public $dateStartsAt;
+    public DateTimeInterface $dateStartsAt;
 
     /**
-     * @var DateTime
      * @ORM\Column(name="pts_ends_at", type="datetime")
      */
-    public $dateEndsAt;
+    public DateTimeInterface $dateEndsAt;
 
     //endregion
-
     //region Associations
-
     /**
-     * @var Activity
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Activity")
      * @ORM\JoinColumn(name="pts_activity_id", referencedColumnName="pac_id")
      */
-    public $activity;
+    public ?Activity $activity;
 
     /**
-     * @var Location
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Location")
      * @ORM\JoinColumn(name="pts_location_id", referencedColumnName="plo_id")
      */
-    public $location;
+    public ?Location $location;
 
     //endregion
 
@@ -75,12 +68,12 @@ class Timeslot
         return $this->id;
     }
 
-    public function getDateStartsAt(): DateTime
+    public function getDateStartsAt(): DateTimeInterface
     {
         return $this->dateStartsAt;
     }
 
-    public function getDateEndsAt(): DateTime
+    public function getDateEndsAt(): DateTimeInterface
     {
         return $this->dateEndsAt;
     }

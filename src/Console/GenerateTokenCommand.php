@@ -3,7 +3,7 @@
 namespace App\Console;
 
 use App\Entity\Anplan\Scope;
-use App\Repository\ScopeRepository;
+use App\Repository\Anplan\ScopeRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTEncodeFailureException;
 use Symfony\Component\Console\Command\Command;

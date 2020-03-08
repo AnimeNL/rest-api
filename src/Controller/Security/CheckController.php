@@ -2,7 +2,6 @@
 
 namespace App\Controller\Security;
 
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,6 +20,6 @@ class CheckController extends AbstractController
             return new JsonResponse(['user' => null]);
         }
 
-        return new JsonResponse(['user' => $this->getUser()->getUsername(), 'roles' => $user->getRoles()]);
+        return new JsonResponse(['user' => $user->getUsername(), 'roles' => $user->getRoles()]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Anplan;
 
 use App\Entity\Anplan\Scope;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

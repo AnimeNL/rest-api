@@ -8,15 +8,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class VolunteerContextBuilder implements SerializerContextBuilderInterface
 {
-    /**
-     * @var SerializerContextBuilderInterface
-     */
-    private $decorated;
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
+    private SerializerContextBuilderInterface $decorated;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     public function __construct(
         SerializerContextBuilderInterface $decorated,
