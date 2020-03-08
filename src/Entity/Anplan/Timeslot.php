@@ -73,7 +73,7 @@ class Timeslot
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Location")
      * @ORM\JoinColumn(name="pts_location_id", referencedColumnName="plo_id")
      * @ApiSubresource()
-     * @Groups({"read-timeslot"})
+     * @Groups({"read"})
      */
     public $location;
 
