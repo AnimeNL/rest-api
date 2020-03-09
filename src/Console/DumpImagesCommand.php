@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Anplan\FileHelper;
 use App\Entity\Anplan\Activity;
 use App\Repository\Anplan\ActivityRepository;
 use Symfony\Component\Console\Command\Command;
@@ -82,11 +83,8 @@ class DumpImagesCommand extends Command
 
     private function resourceToFile($resource, $filename)
     {
-        // 0: filename, 1: mime, 2: timestamp, the rest is the file?!
-        $contents = explode("\t", stream_get_contents($resource));
-        $image = implode("\t", array_slice($contents, 3));
-        $extension = pathinfo($contents[0], PATHINFO_EXTENSION);
+        $file = FileHelper::fromResource($resource);
 
-        file_put_contents($this->imageDir . $filename . '.' . $extension, $image);
+        file_put_contents($this->imageDir . $filename . '.' . $file->getExtension(), $file->getContents());
     }
 }

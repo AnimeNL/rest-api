@@ -4,12 +4,12 @@ namespace App\Entity\Anplan;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
-use App\Repository\Anplan\ActivityRepository;
+use App\Anplan\FileHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\Anplan\ActivityRepository")
  * @ORM\Table(name="plan__activities")
  * @ApiResource(
  *     description="Describes an event at the convention.",
@@ -150,11 +150,13 @@ class Activity
 
     /**
      * @ORM\Column(name="pac_large_image", type="blob", nullable=true)
+     * @Groups({"ignore"})
      */
     public $largeImage;
 
     /**
      * @ORM\Column(name="pac_small_image", type="blob", nullable=true)
+     * @Groups({"ignore"})
      */
     public $smallImage;
 
@@ -284,19 +286,37 @@ class Activity
         return $this->ticketsInfo;
     }
 
-    public function getLargeImage()
-    {
-        return $this->largeImage;
-    }
-
-    public function getSmallImage()
-    {
-        return $this->smallImage;
-    }
-
     public function getTimeslots()
     {
         return $this->timeslots;
+    }
+
+    /**
+     * @Groups({"read"})
+     */
+    public function getSmallImage(): ?string
+    {
+        if (!$this->smallImage) {
+            return null;
+        }
+
+        $file = FileHelper::fromResource($this->smallImage);
+
+        return 'activity-' . $this->id . '-small.' . $file->getExtension();
+    }
+
+    /**
+     * @Groups({"read"})
+     */
+    public function getLargeImage(): ?string
+    {
+        if (!$this->largeImage) {
+            return null;
+        }
+
+        $file = FileHelper::fromResource($this->largeImage);
+
+        return 'activity-' . $this->id . '-large.' . $file->getExtension();
     }
 
     //endregion
