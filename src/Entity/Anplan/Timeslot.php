@@ -27,7 +27,10 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  *     denormalizationContext={"groups"={"write"}}
  * )
  * @ApiFilter(DateFilter::class, properties={"dateStartsAt", "dateEndsAt"})
- * @ApiFilter(SearchFilter::class, properties={"activity.id", "activity.year", "location.id", "activity.visible"})
+ * @ApiFilter(
+ *     SearchFilter::class,
+ *     properties={"activity.id", "activity.year", "location.id", "activity.visible", "activity.activityType.id"}
+ * )
  */
 class Timeslot
 {
@@ -58,7 +61,7 @@ class Timeslot
      * @var Activity
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Activity", inversedBy="timeslots")
      * @ORM\JoinColumn(name="pts_activity_id", referencedColumnName="pac_id")
-     * @ApiSubresource()
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read-timeslot"})
      */
     public ?Activity $activity;
@@ -66,7 +69,7 @@ class Timeslot
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Location")
      * @ORM\JoinColumn(name="pts_location_id", referencedColumnName="plo_id")
-     * @ApiSubresource()
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read"})
      */
     public ?Location $location;

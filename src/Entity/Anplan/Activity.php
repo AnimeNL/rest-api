@@ -4,6 +4,7 @@ namespace App\Entity\Anplan;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use App\Repository\Anplan\ActivityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -147,19 +148,29 @@ class Activity
      */
     public ?string $ticketsInfo;
 
+    /**
+     * @ORM\Column(name="pac_large_image", type="blob", nullable=true)
+     */
+    public $largeImage;
+
+    /**
+     * @ORM\Column(name="pac_small_image", type="blob", nullable=true)
+     */
+    public $smallImage;
+
     //endregion
     //region Associations
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\ActivityType")
      * @ORM\JoinColumn(name="pac_type_id", referencedColumnName="pat_id")
-     * @ApiSubresource
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read"})
      */
     public ?ActivityType $activityType;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Anplan\Timeslot", mappedBy="activity")
-     * @ApiSubresource
+     * @ApiSubresource(maxDepth=1)
      * @Groups({"read-activity"})
      */
     public $timeslots;
@@ -271,6 +282,16 @@ class Activity
     public function getTicketsInfo(): ?string
     {
         return $this->ticketsInfo;
+    }
+
+    public function getLargeImage()
+    {
+        return $this->largeImage;
+    }
+
+    public function getSmallImage()
+    {
+        return $this->smallImage;
     }
 
     public function getTimeslots()
@@ -399,6 +420,26 @@ class Activity
     public function setTicketsInfo(?string $ticketsInfo): Activity
     {
         $this->ticketsInfo = $ticketsInfo;
+        return $this;
+    }
+
+    /**
+     * @param resource|null $largeImage
+     * @return Activity
+     */
+    public function setLargeImage($largeImage): Activity
+    {
+        $this->largeImage = $largeImage;
+        return $this;
+    }
+
+    /**
+     * @param resource|null $smallImage
+     * @return Activity
+     */
+    public function setSmallImage($smallImage): Activity
+    {
+        $this->smallImage = $smallImage;
         return $this;
     }
 

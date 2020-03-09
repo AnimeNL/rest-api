@@ -39,3 +39,7 @@
 ###> iis ###
 /public/web.config
 ###< iis ###
+
+###> animecon ###
+/public/images/
+###< animecon ###
