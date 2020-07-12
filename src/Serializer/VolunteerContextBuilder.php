@@ -3,42 +3,37 @@
 namespace App\Serializer;
 
 use ApiPlatform\Core\Serializer\SerializerContextBuilderInterface;
+use App\Converter\RoleToGroupConverter;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 final class VolunteerContextBuilder implements SerializerContextBuilderInterface
 {
     private SerializerContextBuilderInterface $decorated;
-    private AuthorizationCheckerInterface $authorizationChecker;
+    private Security $security;
+    private RoleToGroupConverter $roleToGroupConverter;
 
     public function __construct(
         SerializerContextBuilderInterface $decorated,
-        AuthorizationCheckerInterface $authorizationChecker
+        Security $security,
+        RoleToGroupConverter $roleToGroupConverter
     ) {
         $this->decorated = $decorated;
-        $this->authorizationChecker = $authorizationChecker;
+        $this->security = $security;
+        $this->roleToGroupConverter = $roleToGroupConverter;
     }
 
     public function createFromRequest(Request $request, bool $normalization, ?array $extractedAttributes = null): array
     {
         $context = $this->decorated->createFromRequest($request, $normalization, $extractedAttributes);
+        $user = $this->security->getUser();
 
-        $roleToGroup = [
-            'ROLE_TECH_CREW' => 'tech-crew',
-            'ROLE_GOPHER' => 'gopher',
-            'ROLE_SENIOR_GOPHER' => 'senior-gopher',
-            'ROLE_GOPHER_MANAGER' => 'gopher-manager',
-            'ROLE_STEWARD' => 'steward',
-            'ROLE_SENIOR_STEWARD' => 'senior-steward',
-            'ROLE_STEWARD_MANAGER' => 'steward-manager',
-            'ROLE_STAFF' => 'staff',
-        ];
-
-        foreach ($roleToGroup as $role => $group) {
-            if ($this->authorizationChecker->isGranted($role)) {
-                $context['groups'][] = $normalization ? $group . ':read' :  $group . ':write';
-            }
+        if (!$user instanceof UserInterface) {
+            return $context;
         }
+
+        $context['groups'] = array_map([$this->roleToGroupConverter, 'convert'], $user->getRoles());
 
         return $context;
     }

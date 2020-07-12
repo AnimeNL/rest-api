@@ -52,7 +52,7 @@ class ActivityType
 
     /**
      * @ORM\Column(name="pat_visible", type="boolean")
-     * @Groups({"read"})
+     * @Groups({"events.read"})
      */
     public bool $visible;
 

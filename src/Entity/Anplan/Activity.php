@@ -54,19 +54,19 @@ class Activity
 
     /**
      * @ORM\Column(name="pac_visible", type="boolean")
-     * @Groups({"staff:read"})
+     * @Groups({"events.read"})
      */
     public bool $visible;
 
     /**
      * @ORM\Column(name="pac_reason_invisible", type="string", nullable=true)
-     * @Groups({"staff:read"})
+     * @Groups({"events.read"})
      */
     public ?string $reasonInvisible;
 
     /**
      * @ORM\Column(name="pac_spell_checked", type="boolean")
-     * @Groups({"staff:read"})
+     * @Groups({"events.read"})
      */
     public bool $spellChecked;
 
@@ -126,25 +126,25 @@ class Activity
 
     /**
      * @ORM\Column(name="pac_tech_info", type="text", nullable=true)
-     * @Groups({"staff:read", "tech-crew:read"})
+     * @Groups({"events.read"})
      */
     public ?string $techInfo;
 
     /**
      * @ORM\Column(name="pac_logistics_info", type="text", nullable=true)
-     * @Groups({"staff:read", "gopher:read"})
+     * @Groups({"events.read", "events.read.gopher"})
      */
     public ?string $logisticsInfo;
 
     /**
      * @ORM\Column(name="pac_finance_info", type="text", nullable=true)
-     * @Groups({"staff:read"})
+     * @Groups({"events.read"})
      */
     public ?string $financeInfo;
 
     /**
      * @ORM\Column(name="pac_tickets_info", type="text", nullable=true)
-     * @Groups({"staff:read"})
+     * @Groups({"events.read"})
      */
     public ?string $ticketsInfo;
 
