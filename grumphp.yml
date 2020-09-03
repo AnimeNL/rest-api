@@ -1,9 +1,4 @@
-parameters:
-    git_dir: .
-    bin_dir: vendor/bin
-    testsuites:
-        phpstan:
-            tasks: [phpstan]
+grumphp:
     tasks:
         phpcs:
             standard: PSR2
