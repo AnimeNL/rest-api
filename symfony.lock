@@ -1,4 +1,28 @@
 {
+    "amphp/amp": {
+        "version": "v2.5.0"
+    },
+    "amphp/byte-stream": {
+        "version": "v1.8.0"
+    },
+    "amphp/parallel": {
+        "version": "v1.4.0"
+    },
+    "amphp/parallel-functions": {
+        "version": "v0.1.3"
+    },
+    "amphp/parser": {
+        "version": "v1.0.0"
+    },
+    "amphp/process": {
+        "version": "v1.1.0"
+    },
+    "amphp/serialization": {
+        "version": "v1.0.0"
+    },
+    "amphp/sync": {
+        "version": "v1.4.0"
+    },
     "api-platform/api-pack": {
         "version": "v1.2.0"
     },
@@ -104,6 +128,12 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.2.1"
+    },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.1"
     },
@@ -151,6 +181,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
+    },
+    "opis/closure": {
+        "version": "3.5.6"
     },
     "phar-io/manifest": {
         "version": "1.0.3"
@@ -324,6 +357,9 @@
     "symfony/dependency-injection": {
         "version": "v4.3.4"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.1.3"
+    },
     "symfony/doctrine-bridge": {
         "version": "v4.3.4"
     },
@@ -427,6 +463,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.12.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.18.1"
     },
     "symfony/process": {
         "version": "v4.3.4"

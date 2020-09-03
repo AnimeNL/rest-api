@@ -2,8 +2,10 @@
 
 namespace App\Entity\Anplan;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Anplan\FileHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -20,8 +22,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "get",
  *     },
  *     normalizationContext={"groups"={"read", "events.read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     denormalizationContext={"groups"={"write"}},
+ *     attributes={
+ *     "filters"={"activity.year_filter"}
+ *     }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial"})
  */
 class Activity
 {
@@ -33,6 +39,12 @@ class Activity
      * @Groups({"read"})
      */
     public int $id;
+
+    /**
+     * @ORM\Column(name="pac_year", type="string")
+     * @Groups({"events.read", "read"})
+     */
+    public string $year;
 
     /**
      * @ORM\Column(name="pac_title", type="string")
@@ -191,9 +203,23 @@ class Activity
         return $this->title;
     }
 
+    public function setTitle(string $title): Activity
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
     public function getSponsor(): ?string
     {
         return $this->sponsor;
+    }
+
+    public function setSponsor(?string $sponsor): Activity
+    {
+        $this->sponsor = $sponsor;
+
+        return $this;
     }
 
     public function getHost(): ?string
@@ -201,9 +227,23 @@ class Activity
         return $this->host;
     }
 
+    public function setHost(?string $host): Activity
+    {
+        $this->host = $host;
+
+        return $this;
+    }
+
     public function getActivityType(): ActivityType
     {
         return $this->activityType;
+    }
+
+    public function setActivityType(ActivityType $activityType): Activity
+    {
+        $this->activityType = $activityType;
+
+        return $this;
     }
 
     public function isVisible(): bool
@@ -211,9 +251,23 @@ class Activity
         return $this->visible;
     }
 
+    public function setVisible(bool $visible): Activity
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
     public function getReasonInvisible(): ?string
     {
         return $this->reasonInvisible;
+    }
+
+    public function setReasonInvisible(?string $reasonInvisible): Activity
+    {
+        $this->reasonInvisible = $reasonInvisible;
+
+        return $this;
     }
 
     public function isSpellChecked(): bool
@@ -221,9 +275,23 @@ class Activity
         return $this->spellChecked;
     }
 
+    public function setSpellChecked(bool $spellChecked): Activity
+    {
+        $this->spellChecked = $spellChecked;
+
+        return $this;
+    }
+
     public function getMaxVisitors(): ?int
     {
         return $this->maxVisitors;
+    }
+
+    public function setMaxVisitors(?int $maxVisitors): Activity
+    {
+        $this->maxVisitors = $maxVisitors;
+
+        return $this;
     }
 
     public function getPrice(): ?float
@@ -231,9 +299,23 @@ class Activity
         return $this->price;
     }
 
+    public function setPrice(?float $price): Activity
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
     public function getRules(): ?string
     {
         return $this->rules;
+    }
+
+    public function setRules(?string $rules): Activity
+    {
+        $this->rules = $rules;
+
+        return $this;
     }
 
     public function getDescription(): ?string
@@ -241,9 +323,27 @@ class Activity
         return $this->description;
     }
 
+    public function setDescription(?string $description): Activity
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     public function getPrintDescription(): ?string
     {
         return $this->printDescription;
+    }
+
+    //endregion
+
+    //region Setters
+
+    public function setPrintDescription(?string $printDescription): Activity
+    {
+        $this->printDescription = $printDescription;
+
+        return $this;
     }
 
     public function getWebDescription(): ?string
@@ -251,9 +351,23 @@ class Activity
         return $this->webDescription;
     }
 
+    public function setWebDescription(?string $webDescription): Activity
+    {
+        $this->webDescription = $webDescription;
+
+        return $this;
+    }
+
     public function getSocialDescription(): ?string
     {
         return $this->socialDescription;
+    }
+
+    public function setSocialDescription(?string $socialDescription): Activity
+    {
+        $this->socialDescription = $socialDescription;
+
+        return $this;
     }
 
     public function getUrl(): ?string
@@ -261,9 +375,23 @@ class Activity
         return $this->url;
     }
 
+    public function setUrl(?string $url): Activity
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
     public function getPrizes(): ?string
     {
         return $this->prizes;
+    }
+
+    public function setPrizes(?string $prizes): Activity
+    {
+        $this->prizes = $prizes;
+
+        return $this;
     }
 
     public function getTechInfo(): ?string
@@ -271,9 +399,23 @@ class Activity
         return $this->techInfo;
     }
 
+    public function setTechInfo(?string $techInfo): Activity
+    {
+        $this->techInfo = $techInfo;
+
+        return $this;
+    }
+
     public function getLogisticsInfo(): ?string
     {
         return $this->logisticsInfo;
+    }
+
+    public function setLogisticsInfo(?string $logisticsInfo): Activity
+    {
+        $this->logisticsInfo = $logisticsInfo;
+
+        return $this;
     }
 
     public function getFinanceInfo(): ?string
@@ -281,9 +423,23 @@ class Activity
         return $this->financeInfo;
     }
 
+    public function setFinanceInfo(?string $financeInfo): Activity
+    {
+        $this->financeInfo = $financeInfo;
+
+        return $this;
+    }
+
     public function getTicketsInfo(): ?string
     {
         return $this->ticketsInfo;
+    }
+
+    public function setTicketsInfo(?string $ticketsInfo): Activity
+    {
+        $this->ticketsInfo = $ticketsInfo;
+
+        return $this;
     }
 
     public function getTimeslots()
@@ -306,6 +462,18 @@ class Activity
     }
 
     /**
+     * @param resource|null $smallImage
+     *
+     * @return Activity
+     */
+    public function setSmallImage($smallImage): Activity
+    {
+        $this->smallImage = $smallImage;
+
+        return $this;
+    }
+
+    /**
      * @Groups({"read"})
      */
     public function getLargeImage(): ?string
@@ -319,149 +487,36 @@ class Activity
         return 'activity-' . $this->id . '-large.' . $file->getExtension();
     }
 
-    //endregion
-
-    //region Setters
-
-    public function setTitle(string $title): Activity
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function setActivityType(ActivityType $activityType): Activity
-    {
-        $this->activityType = $activityType;
-        return $this;
-    }
-
-    public function setSponsor(?string $sponsor): Activity
-    {
-        $this->sponsor = $sponsor;
-        return $this;
-    }
-
-    public function setHost(?string $host): Activity
-    {
-        $this->host = $host;
-        return $this;
-    }
-
-    public function setVisible(bool $visible): Activity
-    {
-        $this->visible = $visible;
-        return $this;
-    }
-
-    public function setReasonInvisible(?string $reasonInvisible): Activity
-    {
-        $this->reasonInvisible = $reasonInvisible;
-        return $this;
-    }
-
-    public function setSpellChecked(bool $spellChecked): Activity
-    {
-        $this->spellChecked = $spellChecked;
-        return $this;
-    }
-
-    public function setMaxVisitors(?int $maxVisitors): Activity
-    {
-        $this->maxVisitors = $maxVisitors;
-        return $this;
-    }
-
-    public function setPrice(?float $price): Activity
-    {
-        $this->price = $price;
-        return $this;
-    }
-
-    public function setRules(?string $rules): Activity
-    {
-        $this->rules = $rules;
-        return $this;
-    }
-
-    public function setDescription(?string $description): Activity
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function setPrintDescription(?string $printDescription): Activity
-    {
-        $this->printDescription = $printDescription;
-        return $this;
-    }
-
-    public function setWebDescription(?string $webDescription): Activity
-    {
-        $this->webDescription = $webDescription;
-        return $this;
-    }
-
-    public function setSocialDescription(?string $socialDescription): Activity
-    {
-        $this->socialDescription = $socialDescription;
-        return $this;
-    }
-
-    public function setUrl(?string $url): Activity
-    {
-        $this->url = $url;
-        return $this;
-    }
-
-    public function setPrizes(?string $prizes): Activity
-    {
-        $this->prizes = $prizes;
-        return $this;
-    }
-
-    public function setTechInfo(?string $techInfo): Activity
-    {
-        $this->techInfo = $techInfo;
-        return $this;
-    }
-
-    public function setLogisticsInfo(?string $logisticsInfo): Activity
-    {
-        $this->logisticsInfo = $logisticsInfo;
-        return $this;
-    }
-
-    public function setFinanceInfo(?string $financeInfo): Activity
-    {
-        $this->financeInfo = $financeInfo;
-        return $this;
-    }
-
-    public function setTicketsInfo(?string $ticketsInfo): Activity
-    {
-        $this->ticketsInfo = $ticketsInfo;
-        return $this;
-    }
-
     /**
      * @param resource|null $largeImage
+     *
      * @return Activity
      */
     public function setLargeImage($largeImage): Activity
     {
         $this->largeImage = $largeImage;
+
         return $this;
     }
 
     /**
-     * @param resource|null $smallImage
-     * @return Activity
+     * @return string
      */
-    public function setSmallImage($smallImage): Activity
+    public function getYear(): string
     {
-        $this->smallImage = $smallImage;
-        return $this;
+        return $this->year;
     }
 
+    /**
+     * @param string $year
+     *
+     * @return Activity
+     */
+    public function setYear(string $year): Activity
+    {
+        $this->year = $year;
+
+        return $this;
+    }
     //endregion
 }
