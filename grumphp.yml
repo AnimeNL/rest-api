@@ -1,16 +1,12 @@
-parameters:
-    git_dir: .
-    bin_dir: vendor/bin
-    testsuites:
-        phpstan:
-            tasks: [phpstan]
+grumphp:
     tasks:
         phpcs:
             standard: PSR2
             whitelist_patterns:
                 - src/
         phplint: ~
-        yamllint: ~
+        yamllint:
+            parse_custom_tags: true
         composer:
             strict: false
             no_check_publish: true
@@ -30,4 +26,5 @@ parameters:
                 - "tests/"
                 - "vendor/"
                 - "var/"
+                - "src/DataProvider/Anplan/ActivityDataProvider.php"
         phpunit: ~
