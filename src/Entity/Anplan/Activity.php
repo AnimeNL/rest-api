@@ -449,11 +449,18 @@ class Activity
 
     /**
      * @Groups({"read"})
+     *
+     * @param bool $asResource
+     * @return resource|string|null
      */
-    public function getSmallImage(): ?string
+    public function getSmallImage(bool $asResource = false)
     {
         if (!$this->smallImage) {
             return null;
+        }
+
+        if ($asResource) {
+            return $this->smallImage;
         }
 
         $file = FileHelper::fromResource($this->smallImage);
@@ -475,11 +482,18 @@ class Activity
 
     /**
      * @Groups({"read"})
+     *
+     * @param bool $asResource
+     * @return resource|string|null
      */
-    public function getLargeImage(): ?string
+    public function getLargeImage(bool $asResource = false)
     {
         if (!$this->largeImage) {
             return null;
+        }
+
+        if ($asResource) {
+            return $this->largeImage;
         }
 
         $file = FileHelper::fromResource($this->largeImage);

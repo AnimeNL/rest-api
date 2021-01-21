@@ -56,17 +56,17 @@ class DumpImagesCommand extends Command
         /** @var Activity $activity */
         foreach ($activities as $activity) {
             // Save small image if exists
-            if ($activity->getSmallImage()) {
+            if ($activity->getSmallImage(true)) {
                 $this->resourceToFile(
-                    $activity->getSmallImage(),
+                    $activity->getSmallImage(true),
                     sprintf('activity-%d-small', $activity->getId())
                 );
             }
 
             // Save large image if exists
-            if ($activity->getLargeImage()) {
+            if ($activity->getLargeImage(true)) {
                 $this->resourceToFile(
-                    $activity->getLargeImage(),
+                    $activity->getLargeImage(true),
                     sprintf('activity-%d-large', $activity->getId())
                 );
             }
@@ -84,6 +84,10 @@ class DumpImagesCommand extends Command
     private function resourceToFile($resource, $filename)
     {
         $file = FileHelper::fromResource($resource);
+
+        if (!strlen($file->getExtension())) {
+            return;
+        }
 
         file_put_contents($this->imageDir . $filename . '.' . $file->getExtension(), $file->getContents());
     }
