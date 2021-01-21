@@ -458,7 +458,11 @@ class Activity
 
         $file = FileHelper::fromResource($this->smallImage);
 
-        return 'activity-' . $this->id . '-small.' . $file->getExtension();
+        return sprintf(
+            'data:%s;base64, %s',
+            $file->getMimeType(),
+            base64_encode($file->getContents()),
+        );
     }
 
     /**
@@ -484,7 +488,11 @@ class Activity
 
         $file = FileHelper::fromResource($this->largeImage);
 
-        return 'activity-' . $this->id . '-large.' . $file->getExtension();
+        return sprintf(
+            'data:%s;base64, %s',
+            $file->getMimeType(),
+            base64_encode($file->getContents()),
+        );
     }
 
     /**
