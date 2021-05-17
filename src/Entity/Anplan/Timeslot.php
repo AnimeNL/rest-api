@@ -24,7 +24,11 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  *         "get",
  *     },
  *     normalizationContext={"groups"={"read", "events.read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     denormalizationContext={"groups"={"write"}},
+ *     attributes={
+ *          "enable_max_depth"=true,
+ *          "force_eager"=false,
+ *     }
  * )
  * @ApiFilter(DateFilter::class, properties={"dateStartsAt", "dateEndsAt"})
  * @ApiFilter(
