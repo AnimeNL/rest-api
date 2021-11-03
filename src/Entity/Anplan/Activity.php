@@ -24,7 +24,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"read", "events.read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
- *     "filters"={"activity.year_filter"}
+ *     "filters"={"activity.year_filter"},
+ *     "enable_max_depth"=true
  *     }
  * )
  * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial"})
