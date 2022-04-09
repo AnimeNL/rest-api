@@ -61,7 +61,6 @@ class Activity
 
     /**
      * @ORM\Column(name="pac_host", type="string", nullable=true)
-     * @Groups({"read"})
      */
     public ?string $host;
 
@@ -139,19 +138,17 @@ class Activity
 
     /**
      * @ORM\Column(name="pac_tech_info", type="text", nullable=true)
-     * @Groups({"events.read"})
      */
     public ?string $techInfo;
 
     /**
      * @ORM\Column(name="pac_logistics_info", type="text", nullable=true)
-     * @Groups({"events.read", "events.read.gopher"})
+     * @Groups({"events.read.gopher"})
      */
     public ?string $logisticsInfo;
 
     /**
      * @ORM\Column(name="pac_finance_info", type="text", nullable=true)
-     * @Groups({"events.read"})
      */
     public ?string $financeInfo;
 
