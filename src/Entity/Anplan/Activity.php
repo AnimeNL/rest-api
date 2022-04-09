@@ -28,7 +28,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "enable_max_depth"=true
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial"})
+ * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial", "visible": "exact"})
  */
 class Activity
 {
@@ -161,17 +161,17 @@ class Activity
      */
     public ?string $ticketsInfo;
 
-    /**
-     * @ORM\Column(name="pac_large_image", type="blob", nullable=true)
-     * @Groups({"ignore"})
-     */
-    public $largeImage;
-
-    /**
-     * @ORM\Column(name="pac_small_image", type="blob", nullable=true)
-     * @Groups({"ignore"})
-     */
-    public $smallImage;
+//    /**
+//     * @ORM\Column(name="pac_large_image", type="blob", nullable=true)
+//     * @Groups({"ignore"})
+//     */
+//    public $largeImage;
+//
+//    /**
+//     * @ORM\Column(name="pac_small_image", type="blob", nullable=true)
+//     * @Groups({"ignore"})
+//     */
+//    public $smallImage;
 
     //endregion
     //region Associations
@@ -453,13 +453,7 @@ class Activity
      */
     public function getSmallImage(): ?string
     {
-        if (!$this->smallImage) {
-            return null;
-        }
-
-        $file = FileHelper::fromResource($this->smallImage);
-
-        return 'activity-' . $this->id . '-small.' . $file->getExtension();
+        return null;
     }
 
     /**
@@ -469,7 +463,7 @@ class Activity
      */
     public function setSmallImage($smallImage): Activity
     {
-        $this->smallImage = $smallImage;
+        //$this->smallImage = $smallImage;
 
         return $this;
     }
@@ -479,13 +473,7 @@ class Activity
      */
     public function getLargeImage(): ?string
     {
-        if (!$this->largeImage) {
-            return null;
-        }
-
-        $file = FileHelper::fromResource($this->largeImage);
-
-        return 'activity-' . $this->id . '-large.' . $file->getExtension();
+        return null;
     }
 
     /**
@@ -495,7 +483,7 @@ class Activity
      */
     public function setLargeImage($largeImage): Activity
     {
-        $this->largeImage = $largeImage;
+        //$this->largeImage = $largeImage;
 
         return $this;
     }
