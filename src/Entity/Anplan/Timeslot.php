@@ -8,7 +8,8 @@ use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 
@@ -32,8 +33,12 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  * )
  * @ApiFilter(DateFilter::class, properties={"dateStartsAt", "dateEndsAt"})
  * @ApiFilter(
- *     SearchFilter::class,
- *     properties={"activity.id", "activity.year", "location.id", "activity.visible", "activity.activityType.id"}
+ *     BooleanFilter::class,
+ *     properties={"activity.visible"}
+ * )
+ * @ApiFilter(
+ *     NumericFilter::class,
+ *     properties={"activity.id", "activity.year", "location.id", "activity.activityType.id"}
  * )
  */
 class Timeslot
@@ -114,24 +119,28 @@ class Timeslot
     public function setDateStartsAt(DateTime $dateStartsAt): Timeslot
     {
         $this->dateStartsAt = $dateStartsAt;
+
         return $this;
     }
 
     public function setDateEndsAt(DateTime $dateEndsAt): Timeslot
     {
         $this->dateEndsAt = $dateEndsAt;
+
         return $this;
     }
 
     public function setActivity(Activity $activity): Timeslot
     {
         $this->activity = $activity;
+
         return $this;
     }
 
     public function setLocation(Location $location): Timeslot
     {
         $this->location = $location;
+
         return $this;
     }
 
