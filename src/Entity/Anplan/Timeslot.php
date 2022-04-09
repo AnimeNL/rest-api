@@ -34,7 +34,7 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  * @ApiFilter(DateFilter::class, properties={"dateStartsAt", "dateEndsAt"})
  * @ApiFilter(
  *     BooleanFilter::class,
- *     properties={"activity.visible"}
+ *     properties={"activity.visible", "activity.activityType.visible"}
  * )
  * @ApiFilter(
  *     NumericFilter::class,
