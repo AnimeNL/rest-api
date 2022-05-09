@@ -56,6 +56,12 @@ class Location
      */
     public ?string $sponsor;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Floor")
+     * @ORM\JoinColumn(name="plo_floor_id", referencedColumnName="pfl_id")
+     */
+    public ?Floor $floor;
+
     //endregion
 
     //region Getters
@@ -70,6 +76,18 @@ class Location
         return $this->name;
     }
 
+    /**
+     * @Groups({"read"})
+     */
+    public function getArea(): ?string
+    {
+        if ($this->floor === null) {
+            return null;
+        }
+
+        return $this->floor->getName();
+    }
+
     //endregion
 
     //region Setters
@@ -77,6 +95,7 @@ class Location
     public function setName(string $name): Location
     {
         $this->name = $name;
+
         return $this;
     }
 

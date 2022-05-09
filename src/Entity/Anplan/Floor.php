@@ -4,6 +4,7 @@ namespace App\Entity\Anplan;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
@@ -35,6 +36,7 @@ class Floor
 
     /**
      * @ORM\Column(name="pfl_name", type="string")
+     * @Groups({"read"})
      */
     public string $name;
 
