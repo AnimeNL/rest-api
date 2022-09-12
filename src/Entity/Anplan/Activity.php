@@ -164,11 +164,11 @@ class Activity
 //     */
 //    public $largeImage;
 //
-//    /**
-//     * @ORM\Column(name="pac_small_image", type="blob", nullable=true)
-//     * @Groups({"ignore"})
-//     */
-//    public $smallImage;
+    /**
+     * @ORM\Column(name="pac_event_image", type="string", nullable=true)
+     * @Groups({"read"})
+     */
+    public ?string $smallImage;
 
     //endregion
     //region Associations
@@ -445,22 +445,21 @@ class Activity
         return $this->timeslots;
     }
 
-    /**
-     * @Groups({"read"})
-     */
+
+
     public function getSmallImage(): ?string
     {
-        return null;
+        return $this->smallImage;
     }
 
     /**
-     * @param resource|null $smallImage
+     * @param string|null $smallImage
      *
      * @return Activity
      */
     public function setSmallImage($smallImage): Activity
     {
-        //$this->smallImage = $smallImage;
+        $this->smallImage = $smallImage;
 
         return $this;
     }
