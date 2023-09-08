@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine3.12
+FROM php:8.1-fpm-alpine3.16
 
 RUN apk update && \
     apk add --no-cache wget nginx tzdata

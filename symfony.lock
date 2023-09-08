@@ -128,9 +128,6 @@
     "gitonomy/gitlib": {
         "version": "v1.1.0"
     },
-    "jakub-onderka/php-parallel-lint": {
-        "version": "v1.0.0"
-    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
