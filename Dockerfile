@@ -4,14 +4,15 @@ RUN apk update && \
     apk add --no-cache wget nginx tzdata
 
 COPY . /var/www/html/.
+WORKDIR /var/www/html/
 
-WORKDIR /var/www/html
-RUN chmod +x /var/www/html/entrypoint.sh && \
-    wget https://getcomposer.org/download/2.2.6/composer.phar && \
+RUN chmod +x /var/www/html/entrypoint.sh
+
+RUN wget https://getcomposer.org/download/2.2.6/composer.phar && \
     php composer.phar install && \
-    docker-php-ext-install pdo pdo_mysql && \
-    rm /etc/nginx/conf.d/default.conf && \
-    mkdir /run/nginx
+    docker-php-ext-install pdo pdo_mysql
+
+RUN rm /etc/nginx/http.d/default.conf
 
 RUN apk del --purge wget 
 
