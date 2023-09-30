@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # create nginx config
-/bin/cat <<'EOF' > /etc/nginx/conf.d/rest.conf
+/bin/cat <<'EOF' > /etc/nginx/http.d/rest.conf
 server {
     index index.php;
     server_name rest_api.local;

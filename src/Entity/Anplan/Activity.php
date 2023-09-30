@@ -6,9 +6,9 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Anplan\FileHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Anplan\ActivityRepository")
@@ -28,7 +28,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "enable_max_depth"=true
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial", "visible": "exact"})
+ * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial"})
+ * @ApiFilter(
+ *      BooleanFilter::class,
+ *      properties={"visible", "activityType.visible"}
+ *  )
  */
 class Activity
 {

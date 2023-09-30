@@ -4,7 +4,6 @@ grumphp:
             standard: PSR2
             whitelist_patterns:
                 - src/
-        phplint: ~
         yamllint:
             parse_custom_tags: true
         composer:
