@@ -5,6 +5,7 @@ namespace App\Entity\Anplan;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -29,6 +30,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  *     }
  * )
  * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial"})
+ * @ApiFilter(NumericFilter::class, properties={"festivalId"})
  * @ApiFilter(
  *      BooleanFilter::class,
  *      properties={"visible", "activityType.visible"}
@@ -44,6 +46,12 @@ class Activity
      * @Groups({"read"})
      */
     public int $id;
+
+    /**
+     * @ORM\Column(name="pac_festival_id", type="integer")
+     * @Groups({"events.read", "read"})
+     */
+    public int $festivalId;
 
     /**
      * @ORM\Column(name="pac_year", type="string")
@@ -198,6 +206,18 @@ class Activity
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getFestivalId(): int
+    {
+        return $this->festivalId;
+    }
+
+    public function setFestivalId(int $festivalId): Activity
+    {
+        $this->festivalId = $festivalId;
+
+        return $this;
     }
 
     public function getTitle(): string
