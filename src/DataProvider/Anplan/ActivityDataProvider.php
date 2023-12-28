@@ -63,7 +63,7 @@ class ActivityDataProvider implements
 
     private function isAllowedToViewHidden(): bool
     {
-        return $this->security->isGranted('ROLE_STAFF');
+        return $this->security->isGranted('ROLE_EVENTS_HIDDEN');
     }
 
     /**
@@ -71,13 +71,13 @@ class ActivityDataProvider implements
      */
     public function getCollection(string $resourceClass, string $operationName = null, $context = null)
     {
+        $showInvisible = $context['filters']['visible'] ?? null === 'false' && $this->isAllowedToViewHidden();
         if ($resourceClass !== Activity::class) {
             throw new ResourceClassNotSupportedException('Invalid resource ' . $resourceClass);
         }
 
         $queryBuilder = $this->activityRepository->createQueryBuilder('t');
-
-        if (!$this->isAllowedToViewHidden()) {
+        if (!$showInvisible) {
             $queryBuilder->where('t.visible = 1');
         }
 
