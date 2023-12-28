@@ -81,11 +81,15 @@ class Location
      */
     public function getArea(): ?string
     {
-        if ($this->floor === null) {
-            return null;
-        }
+        return $this->floor?->getName();
+    }
 
-        return $this->floor->getName();
+    /**
+     * @Groups({"read"})
+     */
+    public function getFloorId(): ?int
+    {
+        return $this->floor?->getId();
     }
 
     //endregion
