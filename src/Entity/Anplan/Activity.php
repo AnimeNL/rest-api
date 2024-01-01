@@ -170,6 +170,12 @@ class Activity
      */
     public ?string $ticketsInfo;
 
+    /**
+     * @ORM\Column(name="pac_help_needed", type="boolean")
+     * @Groups({"events.read"})
+     */
+    public bool $helpNeeded;
+
 //    /**
 //     * @ORM\Column(name="pac_large_image", type="blob", nullable=true)
 //     * @Groups({"ignore"})
@@ -460,6 +466,18 @@ class Activity
     public function setTicketsInfo(?string $ticketsInfo): Activity
     {
         $this->ticketsInfo = $ticketsInfo;
+
+        return $this;
+    }
+
+    public function getHelpNeeded(): bool
+    {
+        return $this->helpNeeded;
+    }
+
+    public function setHelpNeeded(bool $helpNeeded): Activity
+    {
+        $this->helpNeeded = $helpNeeded;
 
         return $this;
     }
