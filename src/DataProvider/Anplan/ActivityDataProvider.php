@@ -71,13 +71,12 @@ class ActivityDataProvider implements
      */
     public function getCollection(string $resourceClass, string $operationName = null, $context = null)
     {
-        $showInvisible = $context['filters']['visible'] ?? null === 'false' && $this->isAllowedToViewHidden();
         if ($resourceClass !== Activity::class) {
             throw new ResourceClassNotSupportedException('Invalid resource ' . $resourceClass);
         }
 
         $queryBuilder = $this->activityRepository->createQueryBuilder('t');
-        if (!$showInvisible) {
+        if (!$this->isAllowedToViewHidden()) {
             $queryBuilder->where('t.visible = 1');
         }
 
