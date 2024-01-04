@@ -33,7 +33,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  * @ApiFilter(NumericFilter::class, properties={"festivalId"})
  * @ApiFilter(
  *      BooleanFilter::class,
- *      properties={"visible", "activityType.visible"}
+ *      properties={"activityType.visible", "activityType.visible"}
  *  )
  */
 class Activity
