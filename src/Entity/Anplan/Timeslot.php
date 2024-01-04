@@ -119,6 +119,7 @@ class Timeslot
     public function setDateStartsAt(DateTime $dateStartsAt): Timeslot
     {
         $this->dateStartsAt = $dateStartsAt;
+        $this->dateStartsAt->setTimezone(new \DateTimeZone('Europe/Amsterdam'));
 
         return $this;
     }
@@ -126,6 +127,7 @@ class Timeslot
     public function setDateEndsAt(DateTime $dateEndsAt): Timeslot
     {
         $this->dateEndsAt = $dateEndsAt;
+        $this->dateEndsAt->setTimezone(new \DateTimeZone('Europe/Amsterdam'));
 
         return $this;
     }
