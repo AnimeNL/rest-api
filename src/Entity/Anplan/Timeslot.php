@@ -119,14 +119,13 @@ class Timeslot
 
     private function forceTimezone(DateTimeInterface $date): string
     {
-        $timezone = new \DateTimeZone('Europe/Amsterdam');
+        $local = new \DateTimeZone('Europe/Amsterdam');
+        $timezonedDate = DateTime::createFromFormat('U', (string) $date->getTimestamp(), $local);
+        if ($timezonedDate === false) {
+            throw new \Exception('Could not create DateTime from timestamp');
+        }
 
-        return sprintf(
-            '%sT%s+0%d:00',
-            $date->format('Y-m-d'),
-            $date->format('H:i:s'),
-            $timezone->getOffset($date) / 3600
-        );
+        return $timezonedDate->setTimezone($local)->format(DATE_ATOM);
     }
 
     public function setDateStartsAt(DateTime $dateStartsAt): Timeslot
