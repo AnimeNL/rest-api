@@ -4,14 +4,14 @@ namespace App\Entity\Anplan;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ORM\Entity()
@@ -92,14 +92,14 @@ class Timeslot
         return $this->id;
     }
 
-    public function getDateStartsAt(): DateTimeInterface
+    public function getDateStartsAt(): string
     {
-        return $this->dateStartsAt;
+        return $this->forceTimezone($this->dateStartsAt);
     }
 
-    public function getDateEndsAt(): DateTimeInterface
+    public function getDateEndsAt(): string
     {
-        return $this->dateEndsAt;
+        return $this->forceTimezone($this->dateEndsAt);
     }
 
     public function getActivity(): Activity
@@ -116,10 +116,22 @@ class Timeslot
 
     //region Setters
 
+
+    private function forceTimezone(DateTimeInterface $date): string
+    {
+        $timezone = new \DateTimeZone('Europe/Amsterdam');
+
+        return sprintf(
+            '%sT%s+0%d:00',
+            $date->format('Y-m-d'),
+            $date->format('H:i:s'),
+            $timezone->getOffset($date) / 3600
+        );
+    }
+
     public function setDateStartsAt(DateTime $dateStartsAt): Timeslot
     {
         $this->dateStartsAt = $dateStartsAt;
-        $this->dateStartsAt->setTimezone(new \DateTimeZone('Europe/Amsterdam'));
 
         return $this;
     }
@@ -127,7 +139,6 @@ class Timeslot
     public function setDateEndsAt(DateTime $dateEndsAt): Timeslot
     {
         $this->dateEndsAt = $dateEndsAt;
-        $this->dateEndsAt->setTimezone(new \DateTimeZone('Europe/Amsterdam'));
 
         return $this;
     }
