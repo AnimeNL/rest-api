@@ -120,7 +120,14 @@ class Timeslot
     private function forceTimezone(DateTimeInterface $date): string
     {
         $local = new \DateTimeZone('Europe/Amsterdam');
-        $timezonedDate = DateTime::createFromFormat('U', (string) $date->getTimestamp(), $local);
+        $utc = new \DateTimeZone('GMT');
+
+        $dateUtc = new \DateTime("@{$date->getTimestamp()}", $utc);
+        $offset = $local->getOffset($dateUtc);
+
+        $adjustedTimestamp = $date->getTimestamp() - $offset;
+
+        $timezonedDate = \DateTime::createFromFormat('U', (string) $adjustedTimestamp, $utc);
         if ($timezonedDate === false) {
             throw new \Exception('Could not create DateTime from timestamp');
         }
