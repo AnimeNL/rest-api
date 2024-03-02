@@ -95,7 +95,7 @@ class Activity
     public bool $spellChecked;
 
     /**
-     * @ORM\Column(name="pac_max_visitors", type="boolean")
+     * @ORM\Column(name="pac_max_visitors", type="integer")
      * @Groups({"read"})
      */
     public ?int $maxVisitors;
