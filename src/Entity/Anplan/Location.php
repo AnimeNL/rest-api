@@ -62,6 +62,12 @@ class Location
      */
     public ?Floor $floor;
 
+    /**
+     * @ORM\Column(name="plo_order", type="integer")
+     * @Groups({"read"})
+     */
+    public int $order;
+
     //endregion
 
     //region Getters
@@ -90,6 +96,14 @@ class Location
     public function getFloorId(): ?int
     {
         return $this->floor?->getId();
+    }
+
+    /**
+     * @Groups({"read"})
+     */
+    public function getOrder(): int
+    {
+        return $this->order;
     }
 
     //endregion
