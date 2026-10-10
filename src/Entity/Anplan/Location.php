@@ -28,7 +28,7 @@ class Location
      * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(name="plo_id", type="integer")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public int $id;
 
@@ -40,7 +40,7 @@ class Location
 
     /**
      * @ORM\Column(name="plo_name", type="string")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public string $name;
 
