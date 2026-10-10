@@ -5,11 +5,11 @@ namespace App\Entity\Anplan;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ApiResource(
@@ -27,6 +27,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  *     "enable_max_depth"=true
  *     }
  * )
+ *
  * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial"})
  * @ApiFilter(NumericFilter::class, properties={"festivalId"})
  * @ApiFilter(
@@ -38,7 +39,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 #[ORM\Table(name: 'plan__activities')]
 class Activity
 {
-    //region Fields
+    // region Fields
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'pac_id', type: 'integer')]
@@ -130,7 +131,7 @@ class Activity
     #[Groups(['events.read'])]
     public bool $helpNeeded;
 
-//    /**
+    //    /**
     //     * @ORM\Column(name="pac_large_image", type="blob", nullable=true)
     //     * @Groups({"ignore"})
     //     */
@@ -140,12 +141,12 @@ class Activity
     #[Groups(['read'])]
     public ?string $smallImage;
 
-    //endregion
-    //region Associations
+    // endregion
+    // region Associations
     /**
      * @ApiSubresource(maxDepth=1)
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Anplan\ActivityType::class)]
+    #[ORM\ManyToOne(targetEntity: ActivityType::class)]
     #[ORM\JoinColumn(name: 'pac_type_id', referencedColumnName: 'pat_id')]
     #[Groups(['read'])]
     public ?ActivityType $activityType;
@@ -153,13 +154,13 @@ class Activity
     /**
      * @ApiSubresource(maxDepth=1)
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\Anplan\Timeslot::class, mappedBy: 'activity')]
+    #[ORM\OneToMany(targetEntity: Timeslot::class, mappedBy: 'activity')]
     #[Groups(['read'])]
     public $timeslots;
 
-    //endregion
+    // endregion
 
-    //region Getters
+    // region Getters
 
     public function getId(): int
     {
@@ -315,9 +316,9 @@ class Activity
         return $this->printDescription;
     }
 
-    //endregion
+    // endregion
 
-    //region Setters
+    // region Setters
 
     public function setPrintDescription(?string $printDescription): Activity
     {
@@ -439,8 +440,6 @@ class Activity
         return $this->timeslots;
     }
 
-
-
     public function getSmallImage(): ?string
     {
         return $this->smallImage;
@@ -448,8 +447,6 @@ class Activity
 
     /**
      * @param string|null $smallImage
-     *
-     * @return Activity
      */
     public function setSmallImage($smallImage): Activity
     {
@@ -466,34 +463,24 @@ class Activity
 
     /**
      * @param resource|null $largeImage
-     *
-     * @return Activity
      */
     public function setLargeImage($largeImage): Activity
     {
-        //$this->largeImage = $largeImage;
+        // $this->largeImage = $largeImage;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getYear(): string
     {
         return $this->year;
     }
 
-    /**
-     * @param string $year
-     *
-     * @return Activity
-     */
     public function setYear(string $year): Activity
     {
         $this->year = $year;
 
         return $this;
     }
-    //endregion
+    // endregion
 }

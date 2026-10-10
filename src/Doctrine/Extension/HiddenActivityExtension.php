@@ -43,7 +43,7 @@ final class HiddenActivityExtension implements QueryCollectionExtensionInterface
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
     ): void {
-        if ($resourceClass !== Activity::class || $this->security->isGranted('ROLE_EVENTS_HIDDEN')) {
+        if (Activity::class !== $resourceClass || $this->security->isGranted('ROLE_EVENTS_HIDDEN')) {
             return;
         }
 

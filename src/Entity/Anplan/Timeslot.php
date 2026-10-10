@@ -8,8 +8,6 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
-use DateTime;
-use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -29,6 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "force_eager"=false,
  *     }
  * )
+ *
  * @ApiFilter(DateFilter::class, properties={"dateStartsAt", "dateEndsAt"})
  * @ApiFilter(
  *     BooleanFilter::class,
@@ -43,7 +42,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Table(name: 'plan__timeslots')]
 class Timeslot
 {
-    //region Fields
+    // region Fields
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'pts_id', type: 'integer')]
@@ -52,19 +51,18 @@ class Timeslot
 
     #[ORM\Column(name: 'pts_starts_at', type: 'datetime')]
     #[Groups(['read'])]
-    public DateTimeInterface $dateStartsAt;
+    public \DateTimeInterface $dateStartsAt;
 
     #[ORM\Column(name: 'pts_ends_at', type: 'datetime')]
     #[Groups(['read'])]
-    public DateTimeInterface $dateEndsAt;
+    public \DateTimeInterface $dateEndsAt;
 
-    //endregion
-    //region Associations
+    // endregion
+    // region Associations
     /**
-     * @var Activity
      * @ApiSubresource(maxDepth=1)
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Anplan\Activity::class, inversedBy: 'timeslots')]
+    #[ORM\ManyToOne(targetEntity: Activity::class, inversedBy: 'timeslots')]
     #[ORM\JoinColumn(name: 'pts_activity_id', referencedColumnName: 'pac_id')]
     #[Groups(['read'])]
     public ?Activity $activity;
@@ -72,14 +70,14 @@ class Timeslot
     /**
      * @ApiSubresource(maxDepth=1)
      */
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Anplan\Location::class)]
+    #[ORM\ManyToOne(targetEntity: Location::class)]
     #[ORM\JoinColumn(name: 'pts_location_id', referencedColumnName: 'plo_id')]
     #[Groups(['read'])]
     public ?Location $location;
 
-    //endregion
+    // endregion
 
-    //region Getters
+    // region Getters
 
     public function getId(): int
     {
@@ -106,12 +104,11 @@ class Timeslot
         return $this->location;
     }
 
-    //endregion
+    // endregion
 
-    //region Setters
+    // region Setters
 
-
-    private function forceTimezone(DateTimeInterface $date): string
+    private function forceTimezone(\DateTimeInterface $date): string
     {
         $local = new \DateTimeZone('Europe/Amsterdam');
         $utc = new \DateTimeZone('GMT');
@@ -122,21 +119,21 @@ class Timeslot
         $adjustedTimestamp = $date->getTimestamp() - $offset;
 
         $timezonedDate = \DateTime::createFromFormat('U', (string) $adjustedTimestamp, $utc);
-        if ($timezonedDate === false) {
+        if (false === $timezonedDate) {
             throw new \Exception('Could not create DateTime from timestamp');
         }
 
         return $timezonedDate->setTimezone($local)->format(DATE_ATOM);
     }
 
-    public function setDateStartsAt(DateTime $dateStartsAt): Timeslot
+    public function setDateStartsAt(\DateTime $dateStartsAt): Timeslot
     {
         $this->dateStartsAt = $dateStartsAt;
 
         return $this;
     }
 
-    public function setDateEndsAt(DateTime $dateEndsAt): Timeslot
+    public function setDateEndsAt(\DateTime $dateEndsAt): Timeslot
     {
         $this->dateEndsAt = $dateEndsAt;
 
@@ -157,5 +154,5 @@ class Timeslot
         return $this;
     }
 
-    //endregion
+    // endregion
 }

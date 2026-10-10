@@ -4,8 +4,8 @@ namespace App\Serializer;
 
 use ApiPlatform\State\SerializerContextBuilderInterface;
 use App\Converter\RoleToGroupConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 final class VolunteerContextBuilder implements SerializerContextBuilderInterface

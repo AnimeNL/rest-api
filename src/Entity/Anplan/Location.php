@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Table(name: 'plan__locations')]
 class Location
 {
-    //region Fields
+    // region Fields
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'plo_id', type: 'integer')]
@@ -46,7 +46,7 @@ class Location
     #[Groups(['read'])]
     public ?string $sponsor;
 
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Anplan\Floor::class)]
+    #[ORM\ManyToOne(targetEntity: Floor::class)]
     #[ORM\JoinColumn(name: 'plo_floor_id', referencedColumnName: 'pfl_id')]
     public ?Floor $floor;
 
@@ -54,9 +54,9 @@ class Location
     #[Groups(['read'])]
     public int $order;
 
-    //endregion
+    // endregion
 
-    //region Getters
+    // region Getters
 
     public function getId(): int
     {
@@ -86,9 +86,9 @@ class Location
         return $this->order;
     }
 
-    //endregion
+    // endregion
 
-    //region Setters
+    // region Setters
 
     public function setName(string $name): Location
     {
@@ -97,5 +97,5 @@ class Location
         return $this;
     }
 
-    //endregion
+    // endregion
 }

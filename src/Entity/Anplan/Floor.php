@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Table(name: 'plan__floors')]
 class Floor
 {
-    //region Fields
+    // region Fields
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'pfl_id', type: 'integer')]
@@ -40,9 +40,9 @@ class Floor
     #[ORM\Column(name: 'pfl_background_color', type: 'string', nullable: true)]
     public ?string $cssBackgroundColor;
 
-    //endregion
+    // endregion
 
-    //region Getters
+    // region Getters
 
     public function getId(): int
     {
@@ -69,33 +69,37 @@ class Floor
         return $this->cssBackgroundColor;
     }
 
-    //endregion
+    // endregion
 
-    //region Setters
+    // region Setters
 
     public function setDescription(?string $description): Floor
     {
         $this->description = $description;
+
         return $this;
     }
 
     public function setYear(int $year): Floor
     {
         $this->year = $year;
+
         return $this;
     }
 
     public function setName(string $name): Floor
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function setCssBackgroundColor(?string $cssBackgroundColor): Floor
     {
         $this->cssBackgroundColor = $cssBackgroundColor;
+
         return $this;
     }
 
-    //endregion
+    // endregion
 }

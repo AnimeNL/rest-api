@@ -1,3 +1,7 @@
 parameters:
   ignoreErrors:
     - '#.*is not subtype of Throwable#'
+    - identifier: property.onlyRead
+      path: src/Entity/Anplan/Scope.php
+    - identifier: property.unused
+      path: src/Entity/Anplan/Scope.php
