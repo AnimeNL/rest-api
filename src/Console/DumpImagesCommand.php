@@ -32,7 +32,7 @@ class DumpImagesCommand extends Command
             ->setDescription('Dumps images for activities, etc.');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Fetching activities...');
 
@@ -42,7 +42,7 @@ class DumpImagesCommand extends Command
             ->getQuery()
             ->getResult();
 
-        $this->imageDir = $this->kernel->getProjectDir() . '/public/images/';
+        $this->imageDir = $this->kernel->getProjectDir().'/public/images/';
 
         if (!file_exists($this->imageDir) && !mkdir($this->imageDir) && !is_dir($this->imageDir)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $this->imageDir));
@@ -85,6 +85,6 @@ class DumpImagesCommand extends Command
     {
         $file = FileHelper::fromResource($resource);
 
-        file_put_contents($this->imageDir . $filename . '.' . $file->getExtension(), $file->getContents());
+        file_put_contents($this->imageDir.$filename.'.'.$file->getExtension(), $file->getContents());
     }
 }

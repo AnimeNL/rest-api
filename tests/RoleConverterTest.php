@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class RoleConverterTest extends TestCase
 {
-    public function roleProvider()
+    public static function roleProvider()
     {
         return [
             ['Test one', 'ROLE_TEST_ONE'],
@@ -19,8 +19,8 @@ class RoleConverterTest extends TestCase
     /**
      * @param string $role
      * @param string $expected
-     * @dataProvider roleProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('roleProvider')]
     public function testConvert(string $role, string $expected)
     {
         self::assertEquals($expected, RoleConverter::convert($role));

@@ -14,8 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity()
- * @ORM\Table(name="plan__timeslots")
  * @ApiResource(
  *     description="Describes an timeslot at the convention.",
  *     collectionOperations={
@@ -41,46 +39,42 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     properties={"activity.id", "activity.year", "location.id", "activity.activityType.id"}
  * )
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'plan__timeslots')]
 class Timeslot
 {
     //region Fields
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="pts_id", type="integer")
-     * @Groups({"read"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'pts_id', type: 'integer')]
+    #[Groups(['read'])]
     public int $id;
 
-    /**
-     * @ORM\Column(name="pts_starts_at", type="datetime")
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pts_starts_at', type: 'datetime')]
+    #[Groups(['read'])]
     public DateTimeInterface $dateStartsAt;
 
-    /**
-     * @ORM\Column(name="pts_ends_at", type="datetime")
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pts_ends_at', type: 'datetime')]
+    #[Groups(['read'])]
     public DateTimeInterface $dateEndsAt;
 
     //endregion
     //region Associations
     /**
      * @var Activity
-     * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Activity", inversedBy="timeslots")
-     * @ORM\JoinColumn(name="pts_activity_id", referencedColumnName="pac_id")
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read"})
      */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Anplan\Activity::class, inversedBy: 'timeslots')]
+    #[ORM\JoinColumn(name: 'pts_activity_id', referencedColumnName: 'pac_id')]
+    #[Groups(['read'])]
     public ?Activity $activity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Location")
-     * @ORM\JoinColumn(name="pts_location_id", referencedColumnName="plo_id")
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read"})
      */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Anplan\Location::class)]
+    #[ORM\JoinColumn(name: 'pts_location_id', referencedColumnName: 'plo_id')]
+    #[Groups(['read'])]
     public ?Location $location;
 
     //endregion

@@ -12,8 +12,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\Anplan\ActivityRepository")
- * @ORM\Table(name="plan__activities")
  * @ApiResource(
  *     description="Describes an event at the convention.",
  *     collectionOperations={
@@ -36,173 +34,127 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  *      properties={"visible", "activityType.visible"}
  *  )
  */
+#[ORM\Entity(repositoryClass: \App\Repository\Anplan\ActivityRepository::class)]
+#[ORM\Table(name: 'plan__activities')]
 class Activity
 {
     //region Fields
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="pac_id", type="integer")
-     * @Groups({"read"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'pac_id', type: 'integer')]
+    #[Groups(['read'])]
     public int $id;
 
-    /**
-     * @ORM\Column(name="pac_festival_id", type="integer")
-     * @Groups({"events.read", "read"})
-     */
+    #[ORM\Column(name: 'pac_festival_id', type: 'integer')]
+    #[Groups(['events.read', 'read'])]
     public int $festivalId;
 
-    /**
-     * @ORM\Column(name="pac_year", type="string")
-     * @Groups({"events.read", "read"})
-     */
+    #[ORM\Column(name: 'pac_year', type: 'string')]
+    #[Groups(['events.read', 'read'])]
     public string $year;
 
-    /**
-     * @ORM\Column(name="pac_title", type="string")
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_title', type: 'string')]
+    #[Groups(['read'])]
     public string $title;
 
-    /**
-     * @ORM\Column(name="pac_sponsor", type="string", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_sponsor', type: 'string', nullable: true)]
+    #[Groups(['read'])]
     public ?string $sponsor;
 
-    /**
-     * @ORM\Column(name="pac_host", type="string", nullable=true)
-     */
+    #[ORM\Column(name: 'pac_host', type: 'string', nullable: true)]
     public ?string $host;
 
-    /**
-     * @ORM\Column(name="pac_visible", type="boolean")
-     * @Groups({"events.read"})
-     */
+    #[ORM\Column(name: 'pac_visible', type: 'boolean')]
+    #[Groups(['events.read'])]
     public bool $visible;
 
-    /**
-     * @ORM\Column(name="pac_reason_invisible", type="string", nullable=true)
-     * @Groups({"events.read"})
-     */
+    #[ORM\Column(name: 'pac_reason_invisible', type: 'string', nullable: true)]
+    #[Groups(['events.read'])]
     public ?string $reasonInvisible;
 
-    /**
-     * @ORM\Column(name="pac_spell_checked", type="boolean")
-     * @Groups({"events.read"})
-     */
+    #[ORM\Column(name: 'pac_spell_checked', type: 'boolean')]
+    #[Groups(['events.read'])]
     public bool $spellChecked;
 
-    /**
-     * @ORM\Column(name="pac_max_visitors", type="integer")
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_max_visitors', type: 'integer')]
+    #[Groups(['read'])]
     public ?int $maxVisitors;
 
-    /**
-     * @ORM\Column(name="pac_price", type="decimal", scale=2, precision=20)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_price', type: 'decimal', scale: 2, precision: 20)]
+    #[Groups(['read'])]
     public ?float $price;
 
-    /**
-     * @ORM\Column(name="pac_rules", type="text", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_rules', type: 'text', nullable: true)]
+    #[Groups(['read'])]
     public ?string $rules;
 
-    /**
-     * @ORM\Column(name="pac_description", type="text", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_description', type: 'text', nullable: true)]
+    #[Groups(['read'])]
     public ?string $description;
 
-    /**
-     * @ORM\Column(name="pac_print_description", type="text", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_print_description', type: 'text', nullable: true)]
+    #[Groups(['read'])]
     public ?string $printDescription;
 
-    /**
-     * @ORM\Column(name="pac_web_description", type="text", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_web_description', type: 'text', nullable: true)]
+    #[Groups(['read'])]
     public ?string $webDescription;
 
-    /**
-     * @ORM\Column(name="pac_social_description", type="text", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_social_description', type: 'text', nullable: true)]
+    #[Groups(['read'])]
     public ?string $socialDescription;
 
-    /**
-     * @ORM\Column(name="pac_url", type="string", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_url', type: 'string', nullable: true)]
+    #[Groups(['read'])]
     public ?string $url;
 
-    /**
-     * @ORM\Column(name="pac_prizes", type="text", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pac_prizes', type: 'text', nullable: true)]
+    #[Groups(['read'])]
     public ?string $prizes;
 
-    /**
-     * @ORM\Column(name="pac_tech_info", type="text", nullable=true)
-     */
+    #[ORM\Column(name: 'pac_tech_info', type: 'text', nullable: true)]
     public ?string $techInfo;
 
-    /**
-     * @ORM\Column(name="pac_logistics_info", type="text", nullable=true)
-     * @Groups({"events.read.gopher"})
-     */
+    #[ORM\Column(name: 'pac_logistics_info', type: 'text', nullable: true)]
+    #[Groups(['events.read.gopher'])]
     public ?string $logisticsInfo;
 
-    /**
-     * @ORM\Column(name="pac_finance_info", type="text", nullable=true)
-     */
+    #[ORM\Column(name: 'pac_finance_info', type: 'text', nullable: true)]
     public ?string $financeInfo;
 
-    /**
-     * @ORM\Column(name="pac_tickets_info", type="text", nullable=true)
-     * @Groups({"events.read"})
-     */
+    #[ORM\Column(name: 'pac_tickets_info', type: 'text', nullable: true)]
+    #[Groups(['events.read'])]
     public ?string $ticketsInfo;
 
-    /**
-     * @ORM\Column(name="pac_help_needed", type="boolean")
-     * @Groups({"events.read"})
-     */
+    #[ORM\Column(name: 'pac_help_needed', type: 'boolean')]
+    #[Groups(['events.read'])]
     public bool $helpNeeded;
 
 //    /**
-//     * @ORM\Column(name="pac_large_image", type="blob", nullable=true)
-//     * @Groups({"ignore"})
-//     */
-//    public $largeImage;
-//
-    /**
-     * @ORM\Column(name="pac_event_image", type="string", nullable=true)
-     * @Groups({"read"})
-     */
+    //     * @ORM\Column(name="pac_large_image", type="blob", nullable=true)
+    //     * @Groups({"ignore"})
+    //     */
+    //    public $largeImage;
+    //
+    #[ORM\Column(name: 'pac_event_image', type: 'string', nullable: true)]
+    #[Groups(['read'])]
     public ?string $smallImage;
 
     //endregion
     //region Associations
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\ActivityType")
-     * @ORM\JoinColumn(name="pac_type_id", referencedColumnName="pat_id")
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read"})
      */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Anplan\ActivityType::class)]
+    #[ORM\JoinColumn(name: 'pac_type_id', referencedColumnName: 'pat_id')]
+    #[Groups(['read'])]
     public ?ActivityType $activityType;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Anplan\Timeslot", mappedBy="activity")
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read"})
      */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Anplan\Timeslot::class, mappedBy: 'activity')]
+    #[Groups(['read'])]
     public $timeslots;
 
     //endregion
@@ -506,9 +458,7 @@ class Activity
         return $this;
     }
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public function getLargeImage(): ?string
     {
         return null;

@@ -7,8 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity()
- * @ORM\Table(name="plan__floors")
  * @ApiResource(
  *     description="Describes a floor at the convention location.",
  *     collectionOperations={
@@ -19,35 +17,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     }
  * )
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'plan__floors')]
 class Floor
 {
     //region Fields
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="pfl_id", type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'pfl_id', type: 'integer')]
     public int $id;
 
-    /**
-     * @ORM\Column(name="pfl_year", type="integer")
-     */
+    #[ORM\Column(name: 'pfl_year', type: 'integer')]
     public int $year;
 
-    /**
-     * @ORM\Column(name="pfl_name", type="string")
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'pfl_name', type: 'string')]
+    #[Groups(['read'])]
     public string $name;
 
-    /**
-     * @ORM\Column(name="pfl_description", type="string", nullable=true)
-     */
+    #[ORM\Column(name: 'pfl_description', type: 'string', nullable: true)]
     public ?string $description;
 
-    /**
-     * @ORM\Column(name="pfl_background_color", type="string", nullable=true)
-     */
+    #[ORM\Column(name: 'pfl_background_color', type: 'string', nullable: true)]
     public ?string $cssBackgroundColor;
 
     //endregion
