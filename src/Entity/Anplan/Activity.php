@@ -61,7 +61,7 @@ class Activity
 
     /**
      * @ORM\Column(name="pac_title", type="string")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public string $title;
 
@@ -114,7 +114,7 @@ class Activity
 
     /**
      * @ORM\Column(name="pac_description", type="text", nullable=true)
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public ?string $description;
 
@@ -138,7 +138,7 @@ class Activity
 
     /**
      * @ORM\Column(name="pac_url", type="string", nullable=true)
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public ?string $url;
 
@@ -184,7 +184,7 @@ class Activity
 //
     /**
      * @ORM\Column(name="pac_event_image", type="string", nullable=true)
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public ?string $smallImage;
 
@@ -194,7 +194,7 @@ class Activity
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\ActivityType")
      * @ORM\JoinColumn(name="pac_type_id", referencedColumnName="pat_id")
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public ?ActivityType $activityType;
 
@@ -507,7 +507,7 @@ class Activity
     }
 
     /**
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public function getLargeImage(): ?string
     {

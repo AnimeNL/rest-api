@@ -34,7 +34,7 @@ class ActivityType
 
     /**
      * @ORM\Column(name="pat_description", type="string")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public string $description;
 
@@ -106,13 +106,13 @@ class ActivityType
 
     /**
      * @ORM\Column(name="pat_foreground_color", type="string")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public ?string $cssForegroundColor;
 
     /**
      * @ORM\Column(name="pat_background_color", type="string")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public string $cssBackgroundColor;
 

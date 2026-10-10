@@ -20,9 +20,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     description="Describes an timeslot at the convention.",
  *     collectionOperations={
  *         "get",
+ *         "timeline_get"={
+ *             "method"="GET",
+ *             "path"="/timeline/timeslots.{_format}",
+ *             "normalization_context"={"groups"={"timeline"}},
+ *         },
  *     },
  *     itemOperations={
  *         "get",
+ *         "timeline_get"={
+ *             "method"="GET",
+ *             "path"="/timeline/timeslots/{id}.{_format}",
+ *             "normalization_context"={"groups"={"timeline"}},
+ *         },
  *     },
  *     normalizationContext={"groups"={"read", "events.read"}},
  *     denormalizationContext={"groups"={"write"}},
@@ -48,19 +58,19 @@ class Timeslot
      * @ORM\Id
      * @ORM\GeneratedValue()
      * @ORM\Column(name="pts_id", type="integer")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public int $id;
 
     /**
      * @ORM\Column(name="pts_starts_at", type="datetime")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public DateTimeInterface $dateStartsAt;
 
     /**
      * @ORM\Column(name="pts_ends_at", type="datetime")
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public DateTimeInterface $dateEndsAt;
 
@@ -71,7 +81,7 @@ class Timeslot
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Activity", inversedBy="timeslots")
      * @ORM\JoinColumn(name="pts_activity_id", referencedColumnName="pac_id")
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public ?Activity $activity;
 
@@ -79,7 +89,7 @@ class Timeslot
      * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Location")
      * @ORM\JoinColumn(name="pts_location_id", referencedColumnName="plo_id")
      * @ApiSubresource(maxDepth=1)
-     * @Groups({"read"})
+     * @Groups({"read", "timeline"})
      */
     public ?Location $location;
 
