@@ -2,23 +2,18 @@
 
 namespace App\Entity\Anplan;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
-/**
- * @ApiResource(
- *     description="Describes the type of an event at the convention.",
- *     collectionOperations={
- *         "get",
- *     },
- *     itemOperations={
- *         "get",
- *     },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
- * )
- */
+#[ApiResource(
+    description: 'Describes the type of an event at the convention.',
+    operations: [new GetCollection(), new Get()],
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'plan__activity_types')]
 class ActivityType

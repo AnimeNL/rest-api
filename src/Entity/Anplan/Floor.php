@@ -2,21 +2,16 @@
 
 namespace App\Entity\Anplan;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
-/**
- * @ApiResource(
- *     description="Describes a floor at the convention location.",
- *     collectionOperations={
- *         "get",
- *     },
- *     itemOperations={
- *         "get",
- *     }
- * )
- */
+#[ApiResource(
+    description: 'Describes a floor at the convention location.',
+    operations: [new GetCollection(), new Get()],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'plan__floors')]
 class Floor

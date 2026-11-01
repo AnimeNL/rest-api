@@ -2,39 +2,27 @@
 
 namespace App\Entity\Anplan;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\MaxDepth;
 
-/**
- * @ApiResource(
- *     description="Describes an event at the convention.",
- *     collectionOperations={
- *         "get",
- *     },
- *     itemOperations={
- *         "get",
- *     },
- *     normalizationContext={"groups"={"read", "events.read"}},
- *     denormalizationContext={"groups"={"write"}},
- *     attributes={
- *     "filters"={"activity.year_filter"},
- *     "enable_max_depth"=true
- *     }
- * )
- *
- * @ApiFilter(SearchFilter::class, properties={"year": "exact", "title": "partial"})
- * @ApiFilter(NumericFilter::class, properties={"festivalId"})
- * @ApiFilter(
- *      BooleanFilter::class,
- *      properties={"visible", "activityType.visible"}
- *  )
- */
+#[ApiResource(
+    description: 'Describes an event at the convention.',
+    operations: [new GetCollection(), new Get()],
+    normalizationContext: ['groups' => ['read', 'events.read'], 'enable_max_depth' => true],
+    denormalizationContext: ['groups' => ['write']],
+    filters: ['activity.year_filter'],
+)]
+#[ApiFilter(SearchFilter::class, properties: ['year' => 'exact', 'title' => 'partial'])]
+#[ApiFilter(NumericFilter::class, properties: ['festivalId'])]
+#[ApiFilter(BooleanFilter::class, properties: ['visible', 'activityType.visible'])]
 #[ORM\Entity(repositoryClass: \App\Repository\Anplan\ActivityRepository::class)]
 #[ORM\Table(name: 'plan__activities')]
 class Activity
@@ -143,19 +131,15 @@ class Activity
 
     // endregion
     // region Associations
-    /**
-     * @ApiSubresource(maxDepth=1)
-     */
     #[ORM\ManyToOne(targetEntity: ActivityType::class)]
     #[ORM\JoinColumn(name: 'pac_type_id', referencedColumnName: 'pat_id')]
     #[Groups(['read'])]
+    #[MaxDepth(1)]
     public ?ActivityType $activityType;
 
-    /**
-     * @ApiSubresource(maxDepth=1)
-     */
     #[ORM\OneToMany(targetEntity: Timeslot::class, mappedBy: 'activity')]
     #[Groups(['read'])]
+    #[MaxDepth(1)]
     public $timeslots;
 
     // endregion

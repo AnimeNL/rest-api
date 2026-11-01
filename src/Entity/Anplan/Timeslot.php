@@ -2,42 +2,32 @@
 
 namespace App\Entity\Anplan;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\MaxDepth;
 
-/**
- * @ApiResource(
- *     description="Describes an timeslot at the convention.",
- *     collectionOperations={
- *         "get",
- *     },
- *     itemOperations={
- *         "get",
- *     },
- *     normalizationContext={"groups"={"read", "events.read"}},
- *     denormalizationContext={"groups"={"write"}},
- *     attributes={
- *          "enable_max_depth"=true,
- *          "force_eager"=false,
- *     }
- * )
- *
- * @ApiFilter(DateFilter::class, properties={"dateStartsAt", "dateEndsAt"})
- * @ApiFilter(
- *     BooleanFilter::class,
- *     properties={"activity.visible", "activity.activityType.visible"}
- * )
- * @ApiFilter(
- *     NumericFilter::class,
- *     properties={"activity.id", "activity.year", "location.id", "activity.activityType.id"}
- * )
- */
+#[ApiResource(
+    description: 'Describes an timeslot at the convention.',
+    operations: [new GetCollection(), new Get()],
+    normalizationContext: ['groups' => ['read', 'events.read'], 'enable_max_depth' => true],
+    denormalizationContext: ['groups' => ['write']],
+    forceEager: false,
+)]
+#[ApiFilter(DateFilter::class, properties: ['dateStartsAt', 'dateEndsAt'])]
+#[ApiFilter(BooleanFilter::class, properties: ['activity.visible', 'activity.activityType.visible'])]
+#[ApiFilter(NumericFilter::class, properties: [
+    'activity.id',
+    'activity.year',
+    'location.id',
+    'activity.activityType.id'
+])]
 #[ORM\Entity]
 #[ORM\Table(name: 'plan__timeslots')]
 class Timeslot
@@ -59,20 +49,16 @@ class Timeslot
 
     // endregion
     // region Associations
-    /**
-     * @ApiSubresource(maxDepth=1)
-     */
     #[ORM\ManyToOne(targetEntity: Activity::class, inversedBy: 'timeslots')]
     #[ORM\JoinColumn(name: 'pts_activity_id', referencedColumnName: 'pac_id')]
     #[Groups(['read'])]
+    #[MaxDepth(1)]
     public ?Activity $activity;
 
-    /**
-     * @ApiSubresource(maxDepth=1)
-     */
     #[ORM\ManyToOne(targetEntity: Location::class)]
     #[ORM\JoinColumn(name: 'pts_location_id', referencedColumnName: 'plo_id')]
     #[Groups(['read'])]
+    #[MaxDepth(1)]
     public ?Location $location;
 
     // endregion
