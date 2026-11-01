@@ -2,24 +2,21 @@
 
 namespace App\Controller\Security;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CheckController extends AbstractController
 {
-    /**
-     * @Route(path="/security/check", name="api_security_check")
-     * @return JsonResponse
-     * @IsGranted("ROLE_ARTICLES")
-     */
+    #[Route(path: '/security/check', name: 'api_security_check')]
+    #[IsGranted('ROLE_ARTICLES')]
     public function handleRequest(): JsonResponse
     {
         if (!$user = $this->getUser()) {
             return new JsonResponse(['user' => null]);
         }
 
-        return new JsonResponse(['user' => $user->getUsername(), 'roles' => $user->getRoles()]);
+        return new JsonResponse(['user' => $user->getUserIdentifier(), 'roles' => $user->getRoles()]);
     }
 }

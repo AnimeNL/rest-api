@@ -10,7 +10,7 @@ class RoleToGroupConverterTest extends TestCase
 
     private RoleToGroupConverter $converter;
 
-    public function converterProvider(): array
+    public static function converterProvider(): array
     {
         return [
             ['ROLE_CMS', 'cms'],
@@ -21,9 +21,7 @@ class RoleToGroupConverterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider converterProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('converterProvider')]
     public function testConvert(string $input, string $output)
     {
         self::assertEquals($output, $this->converter->convert($input));

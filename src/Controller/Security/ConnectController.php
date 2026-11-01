@@ -7,10 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ConnectController
 {
-    /**
-     * @Route(path="/security/connect", name="api_security_connect")
-     * @return JsonResponse
-     */
+    #[Route(path: '/security/connect', name: 'api_security_connect')]
     public function handleRequest(): JsonResponse
     {
         return new JsonResponse();

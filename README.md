@@ -13,6 +13,9 @@ Ensure that the `APP_ENV` is set to `prod` in the event that you are setting up 
 
 **Important!** Do **not** under **any circumstance** run **any** Doctrine command.
 
+Run `bin/console lexik:jwt:generate-keypair` to generate required keys.
+Run `bin/console animecon:token:generate` to see if you can generate a JWT token.
+
 ## Working with the API
 Getting started with the API is easy, simply navigate to the hostname you've configured in your webserver and you will be presented 
 with a fully fledged documentation.

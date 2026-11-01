@@ -10,12 +10,9 @@ security:
             security: false
         api:
             provider: jwt
-            pattern:   ^/
+            pattern: ^/
             stateless: true
-            anonymous: true
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
+            jwt: ~
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -26,5 +23,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control: # TODO: Add restricted areas here
-        - { path: ^/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/docs, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

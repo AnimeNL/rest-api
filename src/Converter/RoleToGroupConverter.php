@@ -6,7 +6,7 @@ class RoleToGroupConverter
 {
     public function convert(string $role): string
     {
-        if ($role === 'ROLE_USER') {
+        if ('ROLE_USER' === $role) {
             return 'read';
         }
 
