@@ -2,10 +2,10 @@
 
 namespace App\Serializer;
 
-use ApiPlatform\Core\Serializer\SerializerContextBuilderInterface;
+use ApiPlatform\State\SerializerContextBuilderInterface;
 use App\Converter\RoleToGroupConverter;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 final class VolunteerContextBuilder implements SerializerContextBuilderInterface
@@ -17,7 +17,7 @@ final class VolunteerContextBuilder implements SerializerContextBuilderInterface
     public function __construct(
         SerializerContextBuilderInterface $decorated,
         Security $security,
-        RoleToGroupConverter $roleToGroupConverter
+        RoleToGroupConverter $roleToGroupConverter,
     ) {
         $this->decorated = $decorated;
         $this->security = $security;

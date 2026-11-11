@@ -2,75 +2,56 @@
 
 namespace App\Entity\Anplan;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="plan__locations")
- * @ApiResource(
- *     description="Describes a location at the event.",
- *     collectionOperations={
- *         "get",
- *     },
- *     itemOperations={
- *         "get",
- *     },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
- * )
- */
+#[ApiResource(
+    description: 'Describes a location at the event.',
+    operations: [new GetCollection(), new Get()],
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']],
+)]
+#[ORM\Entity]
+#[ORM\Table(name: 'plan__locations')]
 class Location
 {
-    //region Fields
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="plo_id", type="integer")
-     * @Groups({"read"})
-     */
+    // region Fields
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'plo_id', type: 'integer')]
+    #[Groups(['read'])]
     public int $id;
 
-    /**
-     * @ORM\Column(name="plo_year", type="integer")
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'plo_year', type: 'integer')]
+    #[Groups(['read'])]
     public int $year;
 
-    /**
-     * @ORM\Column(name="plo_name", type="string")
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'plo_name', type: 'string')]
+    #[Groups(['read'])]
     public string $name;
 
-    /**
-     * @ORM\Column(name="plo_use_name", type="string", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'plo_use_name', type: 'string', nullable: true)]
+    #[Groups(['read'])]
     public ?string $useName;
 
-    /**
-     * @ORM\Column(name="plo_sponsor", type="string", nullable=true)
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'plo_sponsor', type: 'string', nullable: true)]
+    #[Groups(['read'])]
     public ?string $sponsor;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Anplan\Floor")
-     * @ORM\JoinColumn(name="plo_floor_id", referencedColumnName="pfl_id")
-     */
+    #[ORM\ManyToOne(targetEntity: Floor::class)]
+    #[ORM\JoinColumn(name: 'plo_floor_id', referencedColumnName: 'pfl_id')]
     public ?Floor $floor;
 
-    /**
-     * @ORM\Column(name="plo_order", type="integer")
-     * @Groups({"read"})
-     */
+    #[ORM\Column(name: 'plo_order', type: 'integer')]
+    #[Groups(['read'])]
     public int $order;
 
-    //endregion
+    // endregion
 
-    //region Getters
+    // region Getters
 
     public function getId(): int
     {
@@ -82,33 +63,27 @@ class Location
         return $this->name;
     }
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public function getArea(): ?string
     {
         return $this->floor?->getName();
     }
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public function getFloorId(): ?int
     {
         return $this->floor?->getId();
     }
 
-    /**
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
     public function getOrder(): int
     {
         return $this->order;
     }
 
-    //endregion
+    // endregion
 
-    //region Setters
+    // region Setters
 
     public function setName(string $name): Location
     {
@@ -117,5 +92,5 @@ class Location
         return $this;
     }
 
-    //endregion
+    // endregion
 }

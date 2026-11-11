@@ -19,7 +19,7 @@ class GenerateTokenCommand extends Command
 
     public function __construct(
         JWTEncoderInterface $encoder,
-        ScopeRepository $scopeRepository
+        ScopeRepository $scopeRepository,
     ) {
         $this->scopeRepository = $scopeRepository;
         $this->encoder = $encoder;
@@ -40,7 +40,7 @@ class GenerateTokenCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $scopes = $this->scopeRepository->findActive();
-        $scopes = array_map(fn(Scope $scope) => $scope->getScope(), $scopes);
+        $scopes = array_map(fn (Scope $scope) => $scope->getScope(), $scopes);
         $roleQuestion = new ChoiceQuestion(
             'Select desired roles',
             array_values(array_unique($scopes))
@@ -48,8 +48,8 @@ class GenerateTokenCommand extends Command
         $roleQuestion->setMultiselect(true);
         $token = $this->encoder->encode(
             [
-                'sub'    => $io->ask('username'),
-                'scopes' => $this->getHelper('question')->ask($input, $output, $roleQuestion),
+                'sub' => $io->ask('username'),
+                'scopes' => $io->askQuestion($roleQuestion),
             ]
         );
         $io->success('Token generated successfully');
