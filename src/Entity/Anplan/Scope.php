@@ -16,9 +16,6 @@ class Scope
     #[ORM\Column(type: 'string', name: 'vir_right')]
     private string $scope;
 
-    #[ORM\Column(type: 'smallint', name: 'vir_active')]
-    private bool $active;
-
     public function getId(): int
     {
         return $this->id;
@@ -27,10 +24,5 @@ class Scope
     public function getScope(): string
     {
         return $this->scope;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
     }
 }
