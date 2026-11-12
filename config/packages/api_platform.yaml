@@ -15,3 +15,7 @@ api_platform:
     path_segment_name_generator: api_platform.path_segment_name_generator.dash
     defaults:
         pagination_items_per_page: 10000
+    formats:
+        json: [ 'application/json' ]
+        html: [ 'text/html' ]
+        xml: [ 'application/xml' ]
