@@ -142,6 +142,10 @@ class Activity
     #[MaxDepth(1)]
     public $timeslots;
 
+    #[ORM\ManyToOne(targetEntity: Visitor::class)]
+    #[ORM\JoinColumn(name: 'pac_report_to', referencedColumnName: 'vis_id_visitor', nullable: true)]
+    private ?Visitor $reportTo = null;
+
     // endregion
 
     // region Getters
@@ -417,6 +421,18 @@ class Activity
         $this->helpNeeded = $helpNeeded;
 
         return $this;
+    }
+
+    #[Groups(['events.read', 'events.read.gopher'])]
+    public function getReportToName(): ?string
+    {
+        return $this->reportTo?->getFullName();
+    }
+
+    #[Groups(['events.read', 'events.read.gopher'])]
+    public function getReportToEmail(): ?string
+    {
+        return $this->reportTo?->getEmail();
     }
 
     public function getTimeslots()
