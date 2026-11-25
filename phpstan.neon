@@ -5,3 +5,15 @@ parameters:
       path: src/Entity/Anplan/Scope.php
     - identifier: property.unused
       path: src/Entity/Anplan/Scope.php
+    - identifier: property.unusedType
+      path: src/Entity/Anplan/Activity.php
+      reportUnmatched: false
+    - identifier: property.onlyRead
+      path: src/Entity/Anplan/Visitor.php
+      reportUnmatched: false
+    - identifier: property.unused
+      path: src/Entity/Anplan/Visitor.php
+      reportUnmatched: false
+    - identifier: property.unusedType
+      path: src/Entity/Anplan/Visitor.php
+      reportUnmatched: false
